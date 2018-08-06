@@ -2,7 +2,7 @@ name: flutter_asset_generator
 author: caijinglong<cjl_spy@163.com>
 email: cjl_spy@163.com
 homepage: https://github.com/CaiJingLong/flutter_resource_generator
-version: 0.1.0
+version: 0.1.1
 description: with flutter auto generate a dart file.
 
 environment:

@@ -17,7 +17,8 @@
 
 ```yaml
 dev_dependencies:
-  flutter_resource_generator: ^0.1.0
+  build_runner: ^0.9.0
+  flutter_resource_generator: ^0.1.1
 ```
 
 ## 使用
