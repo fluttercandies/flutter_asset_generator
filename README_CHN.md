@@ -2,7 +2,7 @@
 
 在 lib/const/resource.dart 中 自动生成 R 文件(仿安卓短命名)
 
-[中文文档](https://github.com/CaiJingLong/blob/master/README_CHN.md)
+[中文文档](https://github.com/CaiJingLong/flutter_resource_generator/blob/master/README_CHN.md)
 
 [English](https://github.com/CaiJingLong/flutter_resource_generator)
 

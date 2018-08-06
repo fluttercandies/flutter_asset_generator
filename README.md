@@ -6,7 +6,7 @@ The purpose of this library is to help flutter developers automatically generate
 
 This library is based on dartlang's build library.
 
-[中文文档](https://github.com/CaiJingLong/blob/master/README_CHN.md)
+[中文文档](https://github.com/CaiJingLong/flutter_resource_generator/blob/master/README_CHN.md)
 
 [English](https://github.com/CaiJingLong/flutter_resource_generator)
 
