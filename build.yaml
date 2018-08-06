@@ -1,0 +1,7 @@
+builders:
+  testBuilder:
+    import: "package:flutter_asset_generator/builder.dart"
+    builder_factories: ["resourceFileBuilder"]
+    build_extensions: {".dart": [".dart.copy"]}
+    build_to: source
+    auto_apply: root_package
