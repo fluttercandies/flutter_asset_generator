@@ -5,7 +5,8 @@ import 'package:build/build.dart';
 import 'package:flutter_asset_generator/template.dart';
 import 'package:yaml/yaml.dart';
 
-Builder resourceFileBuilder(BuilderOptions options) => new ResourceDartBuilder();
+Builder resourceFileBuilder(BuilderOptions options) =>
+    new ResourceDartBuilder();
 
 var count = 0;
 bool isWatch = false;
@@ -29,7 +30,8 @@ class ResourceDartBuilder extends Builder {
 
       /// because build program is dependent on build cache
       /// so exit will clear dart_tool cache
-      Directory directory = new Directory(projectRootPath + "/.dart_tool/build");
+      Directory directory =
+          new Directory(projectRootPath + "/.dart_tool/build");
       directory.delete(recursive: true);
 
       /// on exit will kill the dart program with current pid
@@ -54,7 +56,9 @@ class ResourceDartBuilder extends Builder {
     }
   }
 
-  File get logFile => new File(new File(inputId.path).parent.parent.absolute.path + "/.dart_tool/log.txt");
+  File get logFile =>
+      new File(new File(inputId.path).parent.parent.absolute.path +
+          "/.dart_tool/log.txt");
 
   String get projectRootPath => logFile.parent.parent.path;
 

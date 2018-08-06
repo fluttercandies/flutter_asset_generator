@@ -1,5 +1,6 @@
 class Template {
-  String licenese = """/// generate by resouce_generator library, shouldn't edit.\n""";
+  String licenese =
+      """/// generate by resouce_generator library, shouldn't edit.\n""";
 
   String get classDeclare => "class R {\n";
   String get classDeclareFooter => "}\n";
