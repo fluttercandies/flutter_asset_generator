@@ -31,11 +31,9 @@ dev_dependencies:
 
 ## 其他
 
-只要你定义在 pubspec.yaml 中,这个库会监听所有的资源文件
+这个库会转化所有定义在 pubspec.yaml 中的文件/文件夹,而不仅是图片
 
-the R class filed name is Camel-Case,and convert the like '.png' to the 'DotPng'. And the '\_' will ignore.
-
-R 类的字段采用驼峰类型的命名,关键字是 Dot,把你文件名中的'.png'转化为'DotPng',"\_"会被忽略,因为下划线被认为是分隔符
+R 类的字段采用驼峰类型的命名,关键字是 Dot,如'.png'转化为'DotPng',"\_"会被忽略,因为下划线被认为是分隔符
 
 转化的例子如下
 
