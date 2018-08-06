@@ -185,13 +185,17 @@ class ResourceDartBuilder extends Builder {
     dirList.forEach((dir) {
       _watch(dir);
     });
+    File pubspec = new File("$projectRootPath/pubspec.yaml");
+    _watch(pubspec);
   }
 
   /// when the directory is change
   /// refresh the code
-  void _watch(Directory dir) {
-    dir.watch().listen((data) {
-      generateResourceDartFile();
-    });
+  void _watch(FileSystemEntity file) {
+    if (FileSystemEntity.isWatchSupported) {
+      file.watch().listen((data) {
+        generateResourceDartFile();
+      });
+    }
   }
 }

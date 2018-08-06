@@ -21,14 +21,14 @@ pubspec.yaml
 ```yaml
 dev_dependencies:
   build_runner: ^0.9.0
-  flutter_asset_generator: ^0.1.0
+  flutter_asset_generator: ^0.1.2
 ```
 
 ## use
 
 cli run: `flutter packages pub run build_runner build`
 
-The command will block, the resource.dart will change when your images change.
+The command will block, the resource.dart will change when your images change or pubspec.yaml is edited.
 
 you can use ctrl+c/cmd+c to exit the program.
 

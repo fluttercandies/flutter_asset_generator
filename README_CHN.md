@@ -18,14 +18,14 @@
 ```yaml
 dev_dependencies:
   build_runner: ^0.9.0
-  flutter_resource_generator: ^0.1.1
+  flutter_resource_generator: ^0.1.2
 ```
 
 ## 使用
 
 在命令行使用 `flutter packages pub run build_runner build` 命令去开启,没有其他任何的操作
 
-这个程序会在后台监测你的 flutter 资源文件夹,并自动刷新 resource.dart 文件
+这个程序会在后台监测你的 flutter 资源文件夹和 pubspec.yaml 文件,当添加了新的资源文件或 pubspec.yaml 发生变化时,会自动刷新 resource.dart 文件
 
 不同于其他的 `runner_build`项目,这里是阻塞的,敲击后需要手动点 ctrl+c/cmd+c 去结束当前的命令行
 
