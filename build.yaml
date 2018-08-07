@@ -5,3 +5,12 @@ builders:
     build_extensions: {".dart": [".dart.copy"]}
     build_to: source
     auto_apply: root_package
+
+# targets:
+#   $default:
+#     sources:
+#       - my_custom_sources/**
+#       - lib/**
+#       - web/**
+#       # Note that it is important to include these in the default target.
+#       - pubspec.*    
