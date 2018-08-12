@@ -51,6 +51,8 @@ pubspec.*是官方建议必须加入的一个文件。这个会帮助dart tool�
 
 你也可以直接下载文件
 
+[build.yaml](https://github.com/CaiJingLong/flutter_resource_generator/releases/download/v0.2.0/build.yaml)
+
 ## 其他
 
 这个库会转化所有定义在 pubspec.yaml 中的文件/文件夹,而不仅是图片

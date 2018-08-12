@@ -53,7 +53,9 @@ targets:
 
 the images/** is your image path
 
-and your also download the file from github.
+and your also download the file from github.   
+
+[build.yaml](https://github.com/CaiJingLong/flutter_resource_generator/releases/download/v0.2.0/build.yaml)
 
 ## other
 
