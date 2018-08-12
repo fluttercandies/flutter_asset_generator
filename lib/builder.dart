@@ -17,27 +17,29 @@ class ResourceDartBuilder extends Builder {
   @override
   Future build(BuildStep buildStep) async {
     this.buildStep = buildStep;
-    if (!inputId.path.endsWith("main.dart")) {
-      return;
-    }
+    // if (!inputId.path.endsWith("main.dart")) {
+    //   return;
+    // }
     logFile.writeAsStringSync(""); //clear file content
+    // logFile.writeAsStringSync("start");
+    // writeText(inputId.path);
     generateResourceDartFile();
 
-    watchFileChange();
-    ProcessSignal.sigint.watch().listen((sign) {
-      /// because the program is block, so your must use ctrl+c/cmd+c the exit the build program.
-      writeText("program on exit event and will delete cache");
+    // watchFileChange();
+    // ProcessSignal.sigint.watch().listen((sign) {
+    //   /// because the program is block, so your must use ctrl+c/cmd+c the exit the build program.
+    //   writeText("program on exit event and will delete cache");
 
-      /// because build program is dependent on build cache
-      /// so exit will clear dart_tool cache
-      Directory directory =
-          new Directory(projectRootPath + "/.dart_tool/build");
-      directory.delete(recursive: true);
+    //   /// because build program is dependent on build cache
+    //   /// so exit will clear dart_tool cache
+    //   Directory directory =
+    //       new Directory(projectRootPath + "/.dart_tool/build");
+    //   directory.delete(recursive: true);
 
-      /// on exit will kill the dart program with current pid
-      writeText("kill current pid = $pid");
-      Process.killPid(pid);
-    });
+    //   /// on exit will kill the dart program with current pid
+    //   writeText("kill current pid = $pid");
+    //   Process.killPid(pid);
+    // });
   }
 
   void generateResourceDartFile() {
@@ -68,7 +70,7 @@ class ResourceDartBuilder extends Builder {
   /// default file is a log file in the .dart_tools/log.txt
   void writeText(Object text, {File file}) {
     file ??= logFile;
-    logFile
+    file
       ..writeAsStringSync(new DateTime.now().toString(), mode: FileMode.append)
       ..writeAsStringSync("  : $text", mode: FileMode.append)
       ..writeAsStringSync("\n", mode: FileMode.append);
@@ -172,8 +174,16 @@ class ResourceDartBuilder extends Builder {
   }
 
   @override
-  Map<String, List<String>> get buildExtensions => const {
-        ".dart": const [".dart.copy"],
+  Map<String, List<String>> get buildExtensions => {
+        ".png":   [".png.dart"],
+        ".jpg":   [".jpg.dart"],
+        ".jpeg":  [".jpe.dart"],
+        ".gif":   [".gif.dart"],
+        ".webp":  [".web.dart"],
+        ".bmp":   [".bmp.dart"],
+        ".wbmp":  [".wbm.dart"],
+        ".yaml":  [".yam.dart"],
+        ".lock":  [".loc.dart"],
       };
 
   /// watch all of path

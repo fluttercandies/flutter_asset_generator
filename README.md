@@ -28,9 +28,32 @@ dev_dependencies:
 
 cli run: `flutter packages pub run build_runner build`
 
-The command will block, the resource.dart will change when your images change or pubspec.yaml is edited.
+cli watch and auto generate: `flutter packages pub run build_runner watch`
 
-you can use ctrl+c/cmd+c to exit the program.
+~~The command will block, the resource.dart will change when your images change or pubspec.yaml is edited.~~
+
+~~you can use ctrl+c/cmd+c to exit the program.~~
+
+
+0.2.0 changelog
+
+Like other build libraries, build/watch commands can now be used normally.
+
+But，user must add a `build.yaml` into your project root path. Bacause `build` library default only watch `https://www.dartlang.org/tools/pub/package-layout`'s list. The list have not 'images' path.
+
+`build.yaml` content is :
+
+```yaml
+targets:
+  $default:
+    sources:
+      - images/**
+      - pubspec.*
+```
+
+the images/** is your image path
+
+and your also download the file from github.
 
 ## other
 

@@ -25,9 +25,31 @@ dev_dependencies:
 
 在命令行使用 `flutter packages pub run build_runner build` 命令去开启,没有其他任何的操作
 
-这个程序会在后台监测你的 flutter 资源文件夹和 pubspec.yaml 文件,当添加了新的资源文件或 pubspec.yaml 发生变化时,会自动刷新 resource.dart 文件
+~~这个程序会在后台监测你的 flutter 资源文件夹和 pubspec.yaml 文件,当添加了新的资源文件或 pubspec.yaml 发生变化时,会自动刷新 resource.dart 文件~~
 
-不同于其他的 `runner_build`项目,这里是阻塞的,敲击后需要手动点 ctrl+c/cmd+c 去结束当前的命令行
+~~不同于其他的 `runner_build`项目,这里是阻塞的,敲击后需要手动点 ctrl+c/cmd+c 去结束当前的命令行~~
+
+0.2.0改动：
+
+如同其他的build库一样，现在可以正常的使用build/watch命令
+
+但作为代价，现在使用者必须自己定义一个`build.yaml`在项目中，因为dart官方的 build库只会默认扫描下列列表的文件，这个列表来源于官方文档`https://www.dartlang.org/tools/pub/package-layout`，而这其中不包含images这样的目录
+
+幸运的是，官方提供了定义方法，我们需要在项目下加入`build.yaml`文件,文件内容如下
+
+```yaml
+targets:
+  $default:
+    sources:
+      - images/**
+      - pubspec.*
+```
+
+这里需要注意 images/** 是你的自定义图片/资源的位置
+
+pubspec.*是官方建议必须加入的一个文件。这个会帮助dart tool更好的运行
+
+你也可以直接下载文件
 
 ## 其他
 
