@@ -55,19 +55,28 @@ pubspec.*是官方建议必须加入的一个文件。这个会帮助dart tool�
 
 ## 其他
 
-这个库会转化所有定义在 pubspec.yaml 中的文件/文件夹,而不仅是图片
+这个库会转化所有定义在 build.yaml 中的文件, 但，仅当如下扩展名的文件被修改/删除/添加时才会生效
 
-R 类的字段采用驼峰类型的命名,关键字是 Dot,如'.png'转化为'DotPng',"\_"会被忽略,因为下划线被认为是分隔符
+```
+".png"
+".jpg"
+".jpeg"
+".gif"
+".webp"
+".bmp"
+".wbmp"
+".yaml"
+".lock"
+```
+
+如果您有其他的扩展名需求，请联系我，或自行修改库文件的build.yaml文件，并使用git/path来引用库
 
 转化的例子如下
 
-    images/1.png => images1DotPng
-    images/hello_world.jpg => imagesHelloWorldDotPng
-    images/hello_wordl_dot_jpg => imagesHelloWorldDotPng
+    images/1.png => IMAGES_PNG
+    images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 
-会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录
-
-所以你的文件名中如果包含 dot 字符,会显的很奇怪
+会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json等）资产
 
 ## TODO
 

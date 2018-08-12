@@ -59,17 +59,27 @@ and your also download the file from github.
 
 ## other
 
-the library will put your every file in the asset path into resource.dart,not just picture files.
+The library will put your every file in the asset path into resource.dart,not just picture files.
 
-the R class filed name is Camel-Case,and convert the like '.png' to the 'DotPng'. And the '\_' will ignore.
+However, changes can only be triggered when the files of the following extension are changed.
+
+```
+".png"
+".jpg"
+".jpeg"
+".gif"
+".webp"
+".bmp"
+".wbmp"
+".yaml"
+".lock"
+```
 
 convert filed example:
 
-    images/1.png => images1DotPng
-    images/hello_world.jpg => imagesHelloWorldDotPng
-    images/hello_wordl_dot_jpg => imagesHelloWorldDotPng
+    images/1.png => IMAGES_PNG
+    images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 
-so the image file name is Camel-Case or split with '\_' is support. if your file have dot looks strange.
 
 ## TODO
 
