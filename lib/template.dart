@@ -9,23 +9,29 @@ class Template {
     return """\n  static const String ${_formatFiledName(path)} = "$path";\n\n""";
   }
 
+  // String _oldFormatFiledName(String path) {
+  //   List<String> names = [];
+  //   var list = path.split("/");
+  //   list.forEach((item) {
+  //     var items = item.split("_");
+  //     names.addAll(items);
+  //   });
+  //   var sb = new StringBuffer();
+  //   for (var i = 0; i < names.length; i++) {
+  //     var partName = names[i];
+  //     if (i != 0) {
+  //       partName = toUppercaseFirstLetter(partName);
+  //       partName = _formatDotPartName(partName);
+  //     }
+  //     sb.write(partName);
+  //   }
+  //   return sb.toString();
+  // }
+
   String _formatFiledName(String path) {
-    List<String> names = [];
-    var list = path.split("/");
-    list.forEach((item) {
-      var items = item.split("_");
-      names.addAll(items);
-    });
-    var sb = new StringBuffer();
-    for (var i = 0; i < names.length; i++) {
-      var partName = names[i];
-      if (i != 0) {
-        partName = toUppercaseFirstLetter(partName);
-        partName = _formatDotPartName(partName);
-      }
-      sb.write(partName);
-    }
-    return sb.toString();
+    path = path.replaceAll("/", "_");
+    path = path.replaceAll(".", "_");
+    return path.toUpperCase();
   }
 
   String toUppercaseFirstLetter(String str) {
