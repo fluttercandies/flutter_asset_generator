@@ -58,9 +58,7 @@ class ResourceDartBuilder extends Builder {
     }
   }
 
-  File get logFile =>
-      new File(new File(inputId.path).parent.parent.absolute.path +
-          "/.dart_tool/log.txt");
+  File get logFile => new File(".dart_tool/log.txt");
 
   String get projectRootPath => logFile.parent.parent.path;
 
@@ -175,15 +173,15 @@ class ResourceDartBuilder extends Builder {
 
   @override
   Map<String, List<String>> get buildExtensions => {
-        ".png":   [".png.dart"],
-        ".jpg":   [".jpg.dart"],
-        ".jpeg":  [".jpe.dart"],
-        ".gif":   [".gif.dart"],
-        ".webp":  [".web.dart"],
-        ".bmp":   [".bmp.dart"],
-        ".wbmp":  [".wbm.dart"],
-        ".yaml":  [".yam.dart"],
-        ".lock":  [".loc.dart"],
+        ".png": [".png.dart"],
+        ".jpg": [".jpg.dart"],
+        ".jpeg": [".jpe.dart"],
+        ".gif": [".gif.dart"],
+        ".webp": [".web.dart"],
+        ".bmp": [".bmp.dart"],
+        ".wbmp": [".wbm.dart"],
+        ".yaml": [".yam.dart"],
+        ".lock": [".loc.dart"],
       };
 
   /// watch all of path

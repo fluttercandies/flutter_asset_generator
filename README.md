@@ -75,12 +75,23 @@ However, changes can only be triggered when the files of the following extension
 ".lock"
 ```
 
-convert filed example:
+convert filed name example:
 
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 
 
-## TODO
+Errors will occur in the following situations
 
-add custom todolist
+  images/
+    main_login.png
+    main/
+      login.png
+
+
+Because the two field names will be exactly the same.
+
+
+## tips
+
+If you run the 'flutter packages run build_runner watch' in cli ,then you change the pubspec.yaml, you must stop the watch, becasue flutter's locked.

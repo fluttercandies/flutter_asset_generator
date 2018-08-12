@@ -78,6 +78,13 @@ pubspec.*是官方建议必须加入的一个文件。这个会帮助dart tool�
 
 会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json等）资产
 
-## TODO
+如下情况会出现错误
+  images/
+    main_login.png
+    main/
+      login.png
 
-添加自定义文件名的模板
+因为两个的字段命名方式是完全相同的
+
+## tips
+如果你在命令行运行来 'flutter packages run build_runner watch' ,然后你修改了`pubspec.yaml`, 这时需要先停止watch进程，然后再`flutter packages get`
