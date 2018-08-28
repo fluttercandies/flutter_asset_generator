@@ -21,7 +21,7 @@ pubspec.yaml
 ```yaml
 dev_dependencies:
   build_runner: ^0.9.0
-  flutter_asset_generator: ^0.1.2
+  flutter_asset_generator: ^0.2.0
 ```
 
 ## use
