@@ -83,11 +83,12 @@ convert filed name example:
 
 Errors will occur in the following situations
 
+```
   images/
     main_login.png
     main/
       login.png
-
+```
 
 Because the two field names will be exactly the same.
 
@@ -95,3 +96,5 @@ Because the two field names will be exactly the same.
 ## tips
 
 If you run the 'flutter packages run build_runner watch' in cli ,then you change the pubspec.yaml, you must stop the watch, becasue flutter's locked.
+
+flutter's asset no supoort hot reload/hot restart. so if you change your assets, you must stop your application, and run `flutter packages get` and `flutter packages pub run build_runner build` to generate your resource.
