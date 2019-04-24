@@ -11,6 +11,7 @@ class ResourceDartBuilder {
   bool isWatch = false;
 
   void generateResourceDartFile() {
+    print("Prepare generate resource dart file.");
     var pubYamlPath = "$projectRootPath/pubspec.yaml";
     try {
       var assetPathList = _getAssetPath(pubYamlPath);
@@ -24,6 +25,7 @@ class ResourceDartBuilder {
         writeText(e);
       }
     }
+    print("Generate dart resource file finish.");
   }
 
   File get logFile => new File(".dart_tool/log.txt");
@@ -34,6 +36,9 @@ class ResourceDartBuilder {
   /// default file is a log file in the .dart_tools/log.txt
   void writeText(Object text, {File file}) {
     file ??= logFile;
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+    }
     file
       ..writeAsStringSync(new DateTime.now().toString(), mode: FileMode.append)
       ..writeAsStringSync("  : $text", mode: FileMode.append)
@@ -164,6 +169,7 @@ class ResourceDartBuilder {
   void _watch(FileSystemEntity file) {
     if (FileSystemEntity.isWatchSupported) {
       file.watch().listen((data) {
+        print("${data.path} is changed.");
         generateResourceDartFile();
       });
     }

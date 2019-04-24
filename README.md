@@ -12,78 +12,61 @@ This library is based on dartlang's build library.
 
 ## screenshot
 
-![img](https://github.com/CaiJingLong/some_asset/blob/master/flutter_resource_generator.gif)
+![img](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/asset_gen_3.0.gif)
 
 ## install
 
-pubspec.yaml
+add `pub`,`dart` to `$PATH` environment.
 
-```yaml
-dev_dependencies:
-  build_runner: ^0.9.0
-  flutter_asset_generator: ^0.2.0
+see https://www.dartlang.org/tools/pub/cmd/pub-global#running-a-script-from-your-path add `.pub-cache/bin` to `$PATH`.
+
+Use next command to validate.
+
+```bash
+dart --version
+pub --version
 ```
 
-## use
+### pub global
 
-cli run: `flutter packages pub run build_runner build`
+use
 
-cli watch and auto generate: `flutter packages pub run build_runner watch`
-
-~~The command will block, the resource.dart will change when your images change or pubspec.yaml is edited.~~
-
-~~you can use ctrl+c/cmd+c to exit the program.~~
-
-
-0.2.0 changelog
-
-Like other build libraries, build/watch commands can now be used normally.
-
-But，user must add a `build.yaml` into your project root path. Bacause `build` library default only watch `https://www.dartlang.org/tools/pub/package-layout`'s list. The list have not 'images' path.
-
-`build.yaml` content is :
-
-```yaml
-targets:
-  $default:
-    sources:
-      - images/**
-      - pubspec.*
+```bash
+pub global activate flutter_asset_generator
 ```
 
-the images/** is your image path
+## Usage
 
-and your also download the file from github.   
+### use dart
 
-[build.yaml](https://github.com/CaiJingLong/flutter_resource_generator/releases/download/v0.2.0/build.yaml)
+git clone https://github.com/CaiJingLong/flutter_resource_generator.git fgen
 
-## other
+cd fgen
 
-The library will put your every file in the asset path into resource.dart,not just picture files.
+dart bin/resource_generator.dart ./example/
 
-However, changes can only be triggered when the files of the following extension are changed.
+### Usage of pub global(recommand)
 
+See [dart document](https://www.dartlang.org/tools/pub/cmd/pub-global)
+
+run at flutter project path:
+
+```bash
+fgen .
 ```
-".png"
-".jpg"
-".jpeg"
-".gif"
-".webp"
-".bmp"
-".wbmp"
-".yaml"
-".lock"
-```
+
+The second parameter is optional, defaulting to the current directory
+
+## File name
 
 convert filed name example:
 
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 
-
 Errors will occur in the following situations
 
-```
+```bash
   images/
     main_login.png
     main/
@@ -91,7 +74,6 @@ Errors will occur in the following situations
 ```
 
 Because the two field names will be exactly the same.
-
 
 ## tips
 

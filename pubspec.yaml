@@ -11,3 +11,6 @@ environment:
 dependencies:
   yaml: ^2.1.15
   path: ^1.6.2
+
+executables:
+  fgen: resource_generator

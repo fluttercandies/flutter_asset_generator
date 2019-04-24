@@ -8,88 +8,56 @@
 
 ## 截图
 
-![img](https://github.com/CaiJingLong/some_asset/blob/master/flutter_resource_generator.gif)
+![img](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/asset_gen_3.0.gif)
 
 ## 安装
 
-在你项目的 pubspec.yaml
-根据节点添加如下的配置
+添加 pub,dart 到 path 环境变量下
 
-```yaml
-dev_dependencies:
-  build_runner: ^0.9.0
-  flutter_resource_generator: ^0.2.0
-```
+参阅 https://www.dartlang.org/tools/pub/cmd/pub-global#running-a-script-from-your-path 添加`.pub-cache/bin` 至环境变量下
+
+保证
+dart --version
+pub --version 有正确的输出
+
+### pub global
+
+pub global activate flutter_asset_generator
 
 ## 使用
 
-在命令行使用 `flutter packages pub run build_runner build` 命令去开启,没有其他任何的操作
+### 使用 dart
 
-~~这个程序会在后台监测你的 flutter 资源文件夹和 pubspec.yaml 文件,当添加了新的资源文件或 pubspec.yaml 发生变化时,会自动刷新 resource.dart 文件~~
+dart bin/resource_generator.dart ./example/
 
-~~不同于其他的 `runner_build`项目,这里是阻塞的,敲击后需要手动点 ctrl+c/cmd+c 去结束当前的命令行~~
+### 使用 pub global(推荐)
 
-0.2.0改动：
+参阅[官方文档](https://www.dartlang.org/tools/pub/cmd/pub-global)
 
-如同其他的build库一样，现在可以正常的使用build/watch命令
+在 flutter 目录下执行
 
-但作为代价，现在使用者必须自己定义一个`build.yaml`在项目中，因为dart官方的 build库只会默认扫描下列列表的文件，这个列表来源于官方文档`https://www.dartlang.org/tools/pub/package-layout`，而这其中不包含images这样的目录
-
-幸运的是，官方提供了定义方法，我们需要在项目下加入`build.yaml`文件,文件内容如下
-
-```yaml
-targets:
-  $default:
-    sources:
-      - images/**
-      - pubspec.*
+```bash
+fgen .
 ```
 
-这里需要注意 images/** 是你的自定义图片/资源的位置
+注意这个`.` , 这里第二个目录就是你的 flutter 目录, 可以省略,省略后默认在当前文件夹
 
-pubspec.*是官方建议必须加入的一个文件。这个会帮助dart tool更好的运行
-
-你也可以直接下载文件
-
-[build.yaml](https://github.com/CaiJingLong/flutter_resource_generator/releases/download/v0.2.0/build.yaml)
-
-## 其他
-
-这个库会转化所有定义在 build.yaml 中的文件, 但，仅当如下扩展名的文件被修改/删除/添加时才会生效
-
-```
-".png"
-".jpg"
-".jpeg"
-".gif"
-".webp"
-".bmp"
-".wbmp"
-".yaml"
-".lock"
-```
-
-如果您有其他的扩展名需求，请联系我，或自行修改库文件的build.yaml文件，并使用git/path来引用库
+## 关于文件名
 
 转化的例子如下
 
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 
-会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json等）资产
+会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json 等）资产
 
 如下情况会出现错误
 
-```
+```bash
   images/
     main_login.png
     main/
       login.png
 ```
+
 因为两个的字段命名方式是完全相同的
-
-## tips
-如果你在命令行运行来 'flutter packages run build_runner watch' ,然后你修改了`pubspec.yaml`, 这时需要先停止watch进程，然后再`flutter packages get`
-
----
-flutter中 资源文件的重新引入不支持热重载,所以你必须全部停止你当前的应用程序后,flutter packages get 来刷新pubspec.yaml文件中对于资源文件的引用,所以watch方式其实不适用于资源文件的引用,所以不建议使用watch命令,会造成flutter的lock
