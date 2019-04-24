@@ -1,5 +1,0 @@
-name: 'example_for_generator'
-flutter:
-  assets:
-    - images/
-    - assets/

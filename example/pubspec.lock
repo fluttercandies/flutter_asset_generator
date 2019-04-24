@@ -2,4 +2,4 @@
 # See https://www.dartlang.org/tools/pub/glossary#lockfile
 packages: {}
 sdks:
-  dart: any
+  dart: ">=2.0.0-dev.51.0 <3.0.0"
