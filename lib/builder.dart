@@ -1,46 +1,14 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:build/build.dart';
 import 'package:flutter_asset_generator/template.dart';
 import 'package:yaml/yaml.dart';
 
-Builder resourceFileBuilder(BuilderOptions options) =>
-    new ResourceDartBuilder();
+const int serverPort = 31313;
 
-var count = 0;
-bool isWatch = false;
+class ResourceDartBuilder {
+  ResourceDartBuilder(this.projectRootPath);
 
-class ResourceDartBuilder extends Builder {
-  BuildStep buildStep;
-
-  @override
-  Future build(BuildStep buildStep) async {
-    this.buildStep = buildStep;
-    // if (!inputId.path.endsWith("main.dart")) {
-    //   return;
-    // }
-    logFile.writeAsStringSync(""); //clear file content
-    // logFile.writeAsStringSync("start");
-    // writeText(inputId.path);
-    generateResourceDartFile();
-
-    // watchFileChange();
-    // ProcessSignal.sigint.watch().listen((sign) {
-    //   /// because the program is block, so your must use ctrl+c/cmd+c the exit the build program.
-    //   writeText("program on exit event and will delete cache");
-
-    //   /// because build program is dependent on build cache
-    //   /// so exit will clear dart_tool cache
-    //   Directory directory =
-    //       new Directory(projectRootPath + "/.dart_tool/build");
-    //   directory.delete(recursive: true);
-
-    //   /// on exit will kill the dart program with current pid
-    //   writeText("kill current pid = $pid");
-    //   Process.killPid(pid);
-    // });
-  }
+  bool isWatch = false;
 
   void generateResourceDartFile() {
     var pubYamlPath = "$projectRootPath/pubspec.yaml";
@@ -60,9 +28,7 @@ class ResourceDartBuilder extends Builder {
 
   File get logFile => new File(".dart_tool/log.txt");
 
-  String get projectRootPath => logFile.parent.parent.path;
-
-  AssetId get inputId => buildStep.inputId;
+  String projectRootPath;
 
   /// write the
   /// default file is a log file in the .dart_tools/log.txt
@@ -129,17 +95,26 @@ class ResourceDartBuilder extends Builder {
   /// if path is a directory ,add the directory to [dirList]
   /// else add it to [imageSet].
   void genarateImageFileWithPath(String path) {
-    if (FileSystemEntity.isDirectorySync(path)) {
-      Directory directory = new Directory(path);
+    String fullPath = _getAbsolutePath(path);
+    if (FileSystemEntity.isDirectorySync(fullPath)) {
+      Directory directory = new Directory(fullPath);
       dirList.add(directory);
       var entitys = directory.listSync(recursive: false);
       entitys.forEach((entity) {
         genarateImageFileWithPath(entity.path);
       });
-    } else if (FileSystemEntity.isFileSync(path)) {
-      // writeTempText("path = $path");
-      if (!imageSet.contains(path)) imageSet.add(path);
+    } else if (FileSystemEntity.isFileSync(fullPath)) {
+      var reletivePath = path.replaceAll(projectRootPath + "/", "");
+      if (!imageSet.contains(path)) imageSet.add(reletivePath);
     }
+  }
+
+  String _getAbsolutePath(String path) {
+    var f = File(path);
+    if (f.isAbsolute) {
+      return path;
+    }
+    return "${projectRootPath}/$path";
   }
 
   var isWriting = false;
@@ -164,29 +139,16 @@ class ResourceDartBuilder extends Builder {
     genarate(template.licenese);
     genarate(template.classDeclare);
     allImageList.forEach((path) {
-      genarate(template.format(path));
+      genarate(template.formatFiled(path, projectRootPath));
     });
     genarate(template.classDeclareFooter);
     lock.close();
     writeText("end write code");
   }
 
-  @override
-  Map<String, List<String>> get buildExtensions => {
-        ".png": [".png.dart"],
-        ".jpg": [".jpg.dart"],
-        ".jpeg": [".jpe.dart"],
-        ".gif": [".gif.dart"],
-        ".webp": [".web.dart"],
-        ".bmp": [".bmp.dart"],
-        ".wbmp": [".wbm.dart"],
-        ".yaml": [".yam.dart"],
-        ".lock": [".loc.dart"],
-      };
-
   /// watch all of path
-  void watchFileChange() {
-    if (isWatch) {
+  void watchFileChange() async {
+    if (!isWatch) {
       return;
     }
     isWatch = true;

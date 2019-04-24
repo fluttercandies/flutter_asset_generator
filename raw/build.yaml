@@ -1,5 +1,0 @@
-targets:
-  $default:
-    sources:
-      - images/**
-      - pubspec.*

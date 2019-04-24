@@ -1,3 +1,5 @@
+import 'package:path/path.dart' as path_library;
+
 class Template {
   String licenese =
       """/// generate by resouce_generator library, shouldn't edit.\n""";
@@ -5,8 +7,10 @@ class Template {
   String get classDeclare => "class R {\n";
   String get classDeclareFooter => "}\n";
 
-  String format(String path) {
-    return """\n  static const String ${_formatFiledName(path)} = "$path";\n\n""";
+  String formatFiled(String path, String projectPath) {
+    return """
+  /// ![preview](${projectPath}${path_library.separator}$path)      
+  static const String ${_formatFiledName(path)} = "$path";\n""";
   }
 
   // String _oldFormatFiledName(String path) {
