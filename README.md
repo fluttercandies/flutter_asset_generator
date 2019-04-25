@@ -10,52 +10,41 @@ This library is based on dartlang's build library.
 
 [English](https://github.com/CaiJingLong/flutter_resource_generator)
 
+- [flutter_asset_generator](#flutterassetgenerator)
+  - [screenshot](#screenshot)
+  - [Usage](#usage)
+    - [use source](#use-source)
+    - [pub global](#pub-global)
+  - [File name](#file-name)
+
 ## screenshot
 
 ![img](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/asset_gen_3.0.gif)
 
-## install
+## Usage
 
-add `pub`,`dart` to `$PATH` environment.
+### use source
 
-see https://www.dartlang.org/tools/pub/cmd/pub-global#running-a-script-from-your-path add `.pub-cache/bin` to `$PATH`.
-
-Use next command to validate.
+add `dart`,`pub` to `$PATH` environment.
 
 ```bash
-dart --version
-pub --version
+git clone https://github.com/CaiJingLong/flutter_resource_generator.git
+cd flutter_resource_generator
+pub get
+dart bin/resource_generator.dart $flutter_project
 ```
 
 ### pub global
 
-use
+install:
 
 ```bash
 pub global activate flutter_asset_generator
 ```
 
-## Usage
+use:
 
-### use dart
-
-git clone https://github.com/CaiJingLong/flutter_resource_generator.git fgen
-
-cd fgen
-
-dart bin/resource_generator.dart ./example/
-
-### Usage of pub global(recommand)
-
-See [dart document](https://www.dartlang.org/tools/pub/cmd/pub-global)
-
-run at flutter project path:
-
-```bash
-fgen .
-```
-
-The second parameter is optional, defaulting to the current directory
+`fgen $flutter_project`
 
 ## File name
 
@@ -74,9 +63,3 @@ Errors will occur in the following situations
 ```
 
 Because the two field names will be exactly the same.
-
-## tips
-
-If you run the 'flutter packages run build_runner watch' in cli ,then you change the pubspec.yaml, you must stop the watch, becasue flutter's locked.
-
-flutter's asset no supoort hot reload/hot restart. so if you change your assets, you must stop your application, and run `flutter packages get` and `flutter packages pub run build_runner build` to generate your resource.
