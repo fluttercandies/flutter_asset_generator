@@ -1,5 +1,9 @@
 # Change log
 
+## [0.3.0]
+
+use pub global
+
 ## [0.1.2] watch pubspec
 
 watch pubspec

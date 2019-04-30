@@ -10,42 +10,56 @@ This library is based on dartlang's build library.
 
 [English](https://github.com/CaiJingLong/flutter_resource_generator)
 
+- [flutter_asset_generator](#flutterassetgenerator)
+  - [screenshot](#screenshot)
+  - [Usage](#usage)
+    - [use source](#use-source)
+    - [pub global](#pub-global)
+  - [File name](#file-name)
+
 ## screenshot
 
-![img](https://github.com/CaiJingLong/some_asset/blob/master/flutter_resource_generator.gif)
+![img](https://raw.githubusercontent.com/CaiJingLong/some_asset/master/asset_gen_3.0.gif)
 
-## install
+## Usage
 
-pubspec.yaml
+### use source
 
-```yaml
-dev_dependencies:
-  build_runner: ^0.9.0
-  flutter_asset_generator: ^0.1.2
+add `dart`,`pub` to `$PATH` environment.
+
+```bash
+git clone https://github.com/CaiJingLong/flutter_resource_generator.git
+cd flutter_resource_generator
+pub get
+dart bin/resource_generator.dart $flutter_project
 ```
 
-## use
+### pub global
 
-cli run: `flutter packages pub run build_runner build`
+install:
 
-The command will block, the resource.dart will change when your images change or pubspec.yaml is edited.
+```bash
+pub global activate flutter_asset_generator
+```
 
-you can use ctrl+c/cmd+c to exit the program.
+use:
 
-## other
+`fgen $flutter_project`
 
-the library will put your every file in the asset path into resource.dart,not just picture files.
+## File name
 
-the R class filed name is Camel-Case,and convert the like '.png' to the 'DotPng'. And the '\_' will ignore.
+convert filed name example:
 
-convert filed example:
+    images/1.png => IMAGES_PNG
+    images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 
-    images/1.png => images1DotPng
-    images/hello_world.jpg => imagesHelloWorldDotPng
-    images/hello_wordl_dot_jpg => imagesHelloWorldDotPng
+Errors will occur in the following situations
 
-so the image file name is Camel-Case or split with '\_' is support. if your file have dot looks strange.
+```bash
+  images/
+    main_login.png
+    main/
+      login.png
+```
 
-## TODO
-
-add custom todolist
+Because the two field names will be exactly the same.

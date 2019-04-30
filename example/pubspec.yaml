@@ -1,0 +1,12 @@
+name: 'example_for_generator'
+author: caijinglong<cjl_spy@163.com>
+description: example
+version: 0.0.1
+homepage: https://github.com
+flutter:
+  assets:
+    - images/
+    - assets/
+
+environment:
+  sdk: '>=2.0.0-dev.51.0 <3.0.0'
