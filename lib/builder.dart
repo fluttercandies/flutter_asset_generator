@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_asset_generator/template.dart';
 import 'package:yaml/yaml.dart';
+import 'package:path/path.dart';
 
 const int serverPort = 31313;
 
@@ -12,7 +13,7 @@ class ResourceDartBuilder {
 
   void generateResourceDartFile() {
     print("Prepare generate resource dart file.");
-    var pubYamlPath = "$projectRootPath/pubspec.yaml";
+    var pubYamlPath = "$projectRootPath${separator}pubspec.yaml";
     try {
       var assetPathList = _getAssetPath(pubYamlPath);
       genarateImageFiles(assetPathList);
@@ -28,7 +29,7 @@ class ResourceDartBuilder {
     print("Generate dart resource file finish.");
   }
 
-  File get logFile => new File(".dart_tool/log.txt");
+  File get logFile => new File(".dart_tool${separator}log.txt");
 
   String projectRootPath;
   String outputPath;
@@ -110,7 +111,7 @@ class ResourceDartBuilder {
         genarateImageFileWithPath(entity.path);
       });
     } else if (FileSystemEntity.isFileSync(fullPath)) {
-      var reletivePath = path.replaceAll(projectRootPath + "/", "");
+      var reletivePath = path.replaceAll(projectRootPath + separator, "");
       if (!imageSet.contains(path)) imageSet.add(reletivePath);
     }
   }
@@ -166,7 +167,7 @@ class ResourceDartBuilder {
     dirList.forEach((dir) {
       _watch(dir);
     });
-    File pubspec = new File("$projectRootPath/pubspec.yaml");
+    File pubspec = new File("$projectRootPath${separator}pubspec.yaml");
     _watch(pubspec);
   }
 

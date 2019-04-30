@@ -30,17 +30,4 @@ class Template {
   String toUppercaseFirstLetter(String str) {
     return str[0].toUpperCase() + str.substring(1);
   }
-
-  // String _formatDotPartName(String partName) {
-  //   partName = partName.splitMapJoin(
-  //     ".",
-  //     onMatch: (m) {
-  //       return "Dot";
-  //     },
-  //     onNonMatch: (m) {
-  //       return toUppercaseFirstLetter(m);
-  //     },
-  //   );
-  //   return partName;
-  // }
 }
