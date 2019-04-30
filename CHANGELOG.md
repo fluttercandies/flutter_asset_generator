@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.0]
+
+Add option for gen
+
 ## [0.3.0]
 
 use pub global

@@ -15,6 +15,7 @@ This library is based on dartlang's build library.
   - [Usage](#usage)
     - [use source](#use-source)
     - [pub global](#pub-global)
+    - [Support options](#support-options)
   - [File name](#file-name)
 
 ## screenshot
@@ -46,12 +47,34 @@ use:
 
 `fgen $flutter_project`
 
+### Support options
+
+Use `$ fgen -h` or `$ fgen --help` see usage document.
+
+```bash
+fgen -h
+-w, --[no-]watch    Continue to monitor changes after execution of orders.
+                    (defaults to on)
+
+-o, --output        Your resource file path.
+                    If it's a relative path, the relative flutter root directory
+                    (defaults to "lib/const/resource.dart")
+
+-s, --src           Flutter project root path
+                    (defaults to ".")
+
+-h, --[no-]help     Help usage
+```
+
 ## File name
+
+`Space`, '.' and '-' in the path are converted to `_`.
 
 convert filed name example:
 
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
+    images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
 
 Errors will occur in the following situations
 
