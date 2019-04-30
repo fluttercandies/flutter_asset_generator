@@ -6,7 +6,7 @@ import 'package:yaml/yaml.dart';
 const int serverPort = 31313;
 
 class ResourceDartBuilder {
-  ResourceDartBuilder(this.projectRootPath);
+  ResourceDartBuilder(this.projectRootPath, this.outputPath);
 
   bool isWatch = false;
 
@@ -31,6 +31,7 @@ class ResourceDartBuilder {
   File get logFile => new File(".dart_tool/log.txt");
 
   String projectRootPath;
+  String outputPath;
 
   /// write the
   /// default file is a log file in the .dart_tools/log.txt
@@ -125,7 +126,7 @@ class ResourceDartBuilder {
   var isWriting = false;
   File _resourceFile;
   File get resourceFile {
-    _resourceFile ??= new File('$projectRootPath/lib/const/resource.dart');
+    _resourceFile ??= new File('$projectRootPath/$outputPath');
     _resourceFile.createSync(recursive: true);
     return _resourceFile;
   }
