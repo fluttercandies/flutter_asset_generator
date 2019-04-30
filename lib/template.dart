@@ -10,13 +10,20 @@ class Template {
   String formatFiled(String path, String projectPath) {
     return """
     
-  /// ![preview](${projectPath}${path_library.separator}$path)      
+  /// ![preview](file://${projectPath}${path_library.separator}${_formatPreviewName(path)})
   static const String ${_formatFiledName(path)} = "$path";\n""";
+  }
+
+  String _formatPreviewName(String path) {
+    path = path.replaceAll(" ", "%20");
+    return path;
   }
 
   String _formatFiledName(String path) {
     path = path.replaceAll("/", "_");
     path = path.replaceAll(".", "_");
+    path = path.replaceAll(" ", "_");
+    path = path.replaceAll("-", "_");
     return path.toUpperCase();
   }
 

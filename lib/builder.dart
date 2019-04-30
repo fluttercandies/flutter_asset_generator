@@ -126,7 +126,12 @@ class ResourceDartBuilder {
   var isWriting = false;
   File _resourceFile;
   File get resourceFile {
-    _resourceFile ??= new File('$projectRootPath/$outputPath');
+    if (File(outputPath).isAbsolute) {
+      _resourceFile ??= new File(outputPath);
+    } else {
+      _resourceFile ??= new File('$projectRootPath/$outputPath');
+    }
+
     _resourceFile.createSync(recursive: true);
     return _resourceFile;
   }
