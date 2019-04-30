@@ -92,10 +92,13 @@ fgen -h
 
 ## 关于文件名
 
+文件中的空格,`/`,`-`,`.`会被转为`_`
+
 转化的例子如下
 
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
+    images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
 
 会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json 等）资产
 

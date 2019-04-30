@@ -68,10 +68,13 @@ fgen -h
 
 ## File name
 
+`Space`, '.' and '-' in the path are converted to `_`.
+
 convert filed name example:
 
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
+    images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
 
 Errors will occur in the following situations
 
