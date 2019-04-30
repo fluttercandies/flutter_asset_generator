@@ -6,20 +6,26 @@ import 'package:path/path.dart' as path_library;
 String get separator => path_library.separator;
 void main(List<String> args) {
   var parser = new ArgParser();
-  // parser.addFlag("watch", abbr: 'w', defaultsTo: true);
+  parser.addFlag(
+    "watch",
+    abbr: 'w',
+    defaultsTo: true,
+    help: "Continue to monitor changes after execution of orders.",
+  );
   parser.addOption(
     "output",
     abbr: 'o',
     defaultsTo: "lib${separator}const${separator}resource.dart",
-    help: "your resource file path ()",
+    help:
+        "Your resource file path. \nIf it's a relative path, the relative flutter root directory",
   );
   parser.addOption(
     "src",
     abbr: 's',
     defaultsTo: ".",
-    help: "flutter project root path",
+    help: "Flutter project root path",
   );
-  parser.addFlag("help", abbr: 'h', help: "help usage", defaultsTo: false);
+  parser.addFlag("help", abbr: 'h', help: "Help usage", defaultsTo: false);
 
   var results = parser.parse(args);
 
@@ -33,12 +39,12 @@ void main(List<String> args) {
   var workPath = File(path).absolute;
   print("Generate files for Project : " + workPath.absolute.path);
 
-  check(workPath, outputPath);
+  check(workPath, outputPath, results["watch"]);
 }
 
-void check(File workPath, String outputPath) {
+void check(File workPath, String outputPath, bool isWatch) {
   var builder = ResourceDartBuilder(workPath.absolute.path, outputPath);
-  builder.isWatch = true;
   builder.generateResourceDartFile();
+  builder.isWatch = isWatch;
   builder.watchFileChange();
 }

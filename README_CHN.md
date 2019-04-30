@@ -11,6 +11,7 @@
   - [安装及使用](#%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8)
     - [使用源码的方式](#%E4%BD%BF%E7%94%A8%E6%BA%90%E7%A0%81%E7%9A%84%E6%96%B9%E5%BC%8F)
     - [pub global](#pub-global)
+    - [支持的命令行参数](#%E6%94%AF%E6%8C%81%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0)
   - [关于文件名](#%E5%85%B3%E4%BA%8E%E6%96%87%E4%BB%B6%E5%90%8D)
 
 ## 截图
@@ -61,6 +62,33 @@ fgen .
 注意这个`.` , 这里第二个目录就是你的 flutter 目录, 可以省略,省略后默认在当前文件夹
 
 也就是在 flutter 项目下使用`$ fgen`即可
+
+### 支持的命令行参数
+
+使用 `$ fgen -h` 或 `$ fgen --help` 可以查看帮助文档
+
+```bash
+fgen -h
+-w, --[no-]watch    Continue to monitor changes after execution of orders.
+                    (defaults to on)
+
+-o, --output        Your resource file path.
+                    If it's a relative path, the relative flutter root directory
+                    (defaults to "lib/const/resource.dart")
+
+-s, --src           Flutter project root path
+                    (defaults to ".")
+
+-h, --[no-]help     Help usage
+```
+
+-s 是 flutter 目录
+
+-o 是生成的资源文件地址,需要包含`.dart`
+
+如果你在 flutter 目录下执行, 仅需 fgen 即可
+
+可以加 --no-watch 参数来不监听文件变化,仅生成一次资源文件
 
 ## 关于文件名
 

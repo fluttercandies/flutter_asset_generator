@@ -15,6 +15,7 @@ This library is based on dartlang's build library.
   - [Usage](#usage)
     - [use source](#use-source)
     - [pub global](#pub-global)
+    - [Support options](#support-options)
   - [File name](#file-name)
 
 ## screenshot
@@ -45,6 +46,25 @@ pub global activate flutter_asset_generator
 use:
 
 `fgen $flutter_project`
+
+### Support options
+
+Use `$ fgen -h` or `$ fgen --help` see usage document.
+
+```bash
+fgen -h
+-w, --[no-]watch    Continue to monitor changes after execution of orders.
+                    (defaults to on)
+
+-o, --output        Your resource file path.
+                    If it's a relative path, the relative flutter root directory
+                    (defaults to "lib/const/resource.dart")
+
+-s, --src           Flutter project root path
+                    (defaults to ".")
+
+-h, --[no-]help     Help usage
+```
 
 ## File name
 
