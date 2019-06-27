@@ -45,7 +45,9 @@ pub global activate flutter_asset_generator
 
 use:
 
-`fgen $flutter_project`
+`fgen`
+or
+`fgen -s $flutter_project`
 
 ### Support options
 
