@@ -56,12 +56,16 @@ pub --version
 在 flutter 目录下执行
 
 ```bash
-fgen .
+fgen
+```
+or
+```bash
+fgen -s .
 ```
 
 注意这个`.` , 这里第二个目录就是你的 flutter 目录, 可以省略,省略后默认在当前文件夹
 
-也就是在 flutter 项目下使用`$ fgen`即可
+也就是在 flutter 项目下使用`fgen`即可
 
 ### 支持的命令行参数
 
