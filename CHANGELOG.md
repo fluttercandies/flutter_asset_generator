@@ -1,5 +1,11 @@
 # Change log
 
+## [0.4.2]
+
+Update description.
+
+Update dependencies version.
+
 ## [0.4.1]
 
 Fix:
