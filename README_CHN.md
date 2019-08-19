@@ -7,12 +7,12 @@
 [English](https://github.com/CaiJingLong/flutter_resource_generator)
 
 - [flutter_asset_generator](#flutterassetgenerator)
-  - [截图](#%E6%88%AA%E5%9B%BE)
-  - [安装及使用](#%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8)
-    - [使用源码的方式](#%E4%BD%BF%E7%94%A8%E6%BA%90%E7%A0%81%E7%9A%84%E6%96%B9%E5%BC%8F)
+  - [截图](#%e6%88%aa%e5%9b%be)
+  - [安装及使用](#%e5%ae%89%e8%a3%85%e5%8f%8a%e4%bd%bf%e7%94%a8)
+    - [使用源码的方式](#%e4%bd%bf%e7%94%a8%e6%ba%90%e7%a0%81%e7%9a%84%e6%96%b9%e5%bc%8f)
     - [pub global](#pub-global)
-    - [支持的命令行参数](#%E6%94%AF%E6%8C%81%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0)
-  - [关于文件名](#%E5%85%B3%E4%BA%8E%E6%96%87%E4%BB%B6%E5%90%8D)
+    - [支持的命令行参数](#%e6%94%af%e6%8c%81%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%8f%82%e6%95%b0)
+  - [关于文件名](#%e5%85%b3%e4%ba%8e%e6%96%87%e4%bb%b6%e5%90%8d)
 
 ## 截图
 
@@ -58,7 +58,9 @@ pub --version
 ```bash
 fgen
 ```
+
 or
+
 ```bash
 fgen -s .
 ```
@@ -100,9 +102,11 @@ fgen -h
 
 转化的例子如下
 
+```gen
     images/1.png => IMAGES_PNG
     images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
     images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
+```
 
 会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json 等）资产
 

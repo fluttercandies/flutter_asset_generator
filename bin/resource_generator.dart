@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_asset_generator/builder.dart';
+import 'package:flutter_asset_generator/logger.dart';
 import 'package:path/path.dart' as path_library;
 
 String get separator => path_library.separator;
@@ -27,7 +28,11 @@ void main(List<String> args) {
   );
   parser.addFlag("help", abbr: 'h', help: "Help usage", defaultsTo: false);
 
+  parser.addFlag("debug", abbr: 'd', help: "debug info", defaultsTo: false);
+
   var results = parser.parse(args);
+
+  Logger().isDebug = results["debug"];
 
   if (results.wasParsed("help")) {
     print(parser.usage);

@@ -1,10 +1,13 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter_asset_generator/logger.dart';
 import 'package:flutter_asset_generator/template.dart';
 import 'package:yaml/yaml.dart';
 import 'package:path/path.dart';
 
 const int serverPort = 31313;
+Logger logger = Logger();
 
 class ResourceDartBuilder {
   ResourceDartBuilder(this.projectRootPath, this.outputPath);
@@ -15,9 +18,11 @@ class ResourceDartBuilder {
     print("Prepare generate resource dart file.");
     var pubYamlPath = "$projectRootPath${separator}pubspec.yaml";
     try {
-      var assetPathList = _getAssetPath(pubYamlPath);
+      final assetPathList = _getAssetPath(pubYamlPath);
+      logger.debug("the assetPath is $assetPathList");
       genarateImageFiles(assetPathList);
       writeText("allImageList = $allImageList");
+      logger.debug("the image is $allImageList");
       generateCode();
     } catch (e) {
       if (e is StackOverflowError) {
@@ -27,6 +32,8 @@ class ResourceDartBuilder {
       }
     }
     print("Generate dart resource file finish.");
+
+    watchFileChange();
   }
 
   File get logFile => new File(".dart_tool${separator}log.txt");
@@ -65,7 +72,7 @@ class ResourceDartBuilder {
     return [];
   }
 
-  /// get the yaml list
+  /// get the asset from yaml list
   List<String> getListFromYamlList(YamlList yamlList) {
     List<String> list = [];
     var r = yamlList.map((f) {
@@ -95,24 +102,30 @@ class ResourceDartBuilder {
     paths.forEach((path) {
       // File file = new File(path);
       // Directory
-      genarateImageFileWithPath(path);
+      genarateImageFileWithPath(path, imageSet, dirList, true);
     });
   }
 
   /// if path is a directory ,add the directory to [dirList]
   /// else add it to [imageSet].
-  void genarateImageFileWithPath(String path) {
+  void genarateImageFileWithPath(String path, Set<String> imageSet,
+      List<Directory> dirList, bool rootPath) {
     String fullPath = _getAbsolutePath(path);
     if (FileSystemEntity.isDirectorySync(fullPath)) {
+      if (!rootPath) {
+        return;
+      }
       Directory directory = new Directory(fullPath);
       dirList.add(directory);
       var entitys = directory.listSync(recursive: false);
       entitys.forEach((entity) {
-        genarateImageFileWithPath(entity.path);
+        genarateImageFileWithPath(entity.path, imageSet, dirList, false);
       });
     } else if (FileSystemEntity.isFileSync(fullPath)) {
       var reletivePath = path.replaceAll(projectRootPath + separator, "");
-      if (!imageSet.contains(path)) imageSet.add(reletivePath);
+      if (!imageSet.contains(path)) {
+        imageSet.add(reletivePath);
+      }
     }
   }
 
@@ -165,20 +178,33 @@ class ResourceDartBuilder {
     }
     isWatch = true;
     dirList.forEach((dir) {
-      _watch(dir);
+      final sub = _watch(dir);
+      watchMap[dir] = sub;
     });
     File pubspec = new File("$projectRootPath${separator}pubspec.yaml");
-    _watch(pubspec);
+    final sub = _watch(pubspec);
+    watchMap[pubspec] = sub;
+
+    print("watching files watch");
   }
 
   /// when the directory is change
   /// refresh the code
-  void _watch(FileSystemEntity file) {
+  StreamSubscription _watch(FileSystemEntity file) {
     if (FileSystemEntity.isWatchSupported) {
-      file.watch().listen((data) {
+      return file.watch().listen((data) {
         print("${data.path} is changed.");
         generateResourceDartFile();
       });
     }
+    return null;
+  }
+
+  Map<FileSystemEntity, StreamSubscription> watchMap = {};
+
+  removeAllWatchs() {
+    watchMap.values.forEach((v) {
+      v?.cancel();
+    });
   }
 }

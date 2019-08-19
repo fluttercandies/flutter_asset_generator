@@ -1,5 +1,11 @@
 # Change log
 
+## [0.4.1]
+
+Fix:
+
+- Recursive query to remove path
+
 ## [0.4.0]
 
 Add option for gen
