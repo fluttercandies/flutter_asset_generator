@@ -1,4 +1,4 @@
-/// generate by resouce_generator library, shouldn't edit.
+/// Generate by resource_generator library, PLEASE DO NOT EDIT MANUALLY.
 class R {
     
   /// ![preview](file:///Users/cai/Documents/GitHub/flutter_resource_generator/example/./assets/address%20space.png)

@@ -20,7 +20,7 @@ class ResourceDartBuilder {
     try {
       final assetPathList = _getAssetPath(pubYamlPath);
       logger.debug("the assetPath is $assetPathList");
-      genarateImageFiles(assetPathList);
+      generateImageFiles(assetPathList);
       writeText("allImageList = $allImageList");
       logger.debug("the image is $allImageList");
       generateCode();
@@ -95,20 +95,20 @@ class ResourceDartBuilder {
   List<Directory> dirList = [];
 
   /// scan the with path list
-  void genarateImageFiles(List<String> paths) {
+  void generateImageFiles(List<String> paths) {
     imageSet.clear();
     dirList.clear();
 
     paths.forEach((path) {
       // File file = new File(path);
       // Directory
-      genarateImageFileWithPath(path, imageSet, dirList, true);
+      generateImageFileWithPath(path, imageSet, dirList, true);
     });
   }
 
   /// if path is a directory ,add the directory to [dirList]
   /// else add it to [imageSet].
-  void genarateImageFileWithPath(String path, Set<String> imageSet,
+  void generateImageFileWithPath(String path, Set<String> imageSet,
       List<Directory> dirList, bool rootPath) {
     String fullPath = _getAbsolutePath(path);
     if (FileSystemEntity.isDirectorySync(fullPath)) {
@@ -117,14 +117,14 @@ class ResourceDartBuilder {
       }
       Directory directory = new Directory(fullPath);
       dirList.add(directory);
-      var entitys = directory.listSync(recursive: false);
-      entitys.forEach((entity) {
-        genarateImageFileWithPath(entity.path, imageSet, dirList, false);
+      var entries = directory.listSync(recursive: false);
+      entries.forEach((entity) {
+        generateImageFileWithPath(entity.path, imageSet, dirList, false);
       });
     } else if (FileSystemEntity.isFileSync(fullPath)) {
-      var reletivePath = path.replaceAll(projectRootPath + separator, "");
+      var relativePath = path.replaceAll(projectRootPath + separator, "");
       if (!imageSet.contains(path)) {
-        imageSet.add(reletivePath);
+        imageSet.add(relativePath);
       }
     }
   }
@@ -156,17 +156,17 @@ class ResourceDartBuilder {
     resourceFile.deleteSync(recursive: true);
     resourceFile.createSync(recursive: true);
     var lock = resourceFile.openWrite(mode: FileMode.append);
-    var genarate = (String text) {
+    var generate = (String text) {
       lock.write(text);
     };
 
     var template = new Template();
-    genarate(template.licenese);
-    genarate(template.classDeclare);
+    generate(template.license);
+    generate(template.classDeclare);
     allImageList.forEach((path) {
-      genarate(template.formatFiled(path, projectRootPath));
+      generate(template.formatFiled(path, projectRootPath));
     });
-    genarate(template.classDeclareFooter);
+    generate(template.classDeclareFooter);
     lock.close();
     writeText("end write code");
   }
@@ -202,7 +202,7 @@ class ResourceDartBuilder {
 
   Map<FileSystemEntity, StreamSubscription> watchMap = {};
 
-  removeAllWatchs() {
+  removeAllWatches() {
     watchMap.values.forEach((v) {
       v?.cancel();
     });
