@@ -1,8 +1,9 @@
 import 'package:path/path.dart' as path_library;
 
 class Template {
-  String licenese =
-      """/// generate by resouce_generator library, shouldn't edit.\n""";
+  String license =
+      """/// Generate by resource_generator library, PLEASE DO NOT EDIT 
+      MANUALLY.\n""";
 
   String get classDeclare => "class R {\n";
   String get classDeclareFooter => "}\n";
