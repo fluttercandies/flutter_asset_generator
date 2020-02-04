@@ -16,7 +16,7 @@ class ResourceDartBuilder {
 
   void generateResourceDartFile() {
     print("Prepare generate resource dart file.");
-    var pubYamlPath = "$projectRootPath${separator}pubspec.yaml";
+    final pubYamlPath = "$projectRootPath${separator}pubspec.yaml";
     try {
       final assetPathList = _getAssetPath(pubYamlPath);
       logger.debug("the assetPath is $assetPathList");
@@ -36,7 +36,7 @@ class ResourceDartBuilder {
     watchFileChange();
   }
 
-  File get logFile => new File(".dart_tool${separator}log.txt");
+  File get logFile => File(".dart_tool${separator}log.txt");
 
   String projectRootPath;
   String outputPath;
@@ -49,19 +49,19 @@ class ResourceDartBuilder {
       file.createSync(recursive: true);
     }
     file
-      ..writeAsStringSync(new DateTime.now().toString(), mode: FileMode.append)
+      ..writeAsStringSync(DateTime.now().toString(), mode: FileMode.append)
       ..writeAsStringSync("  : $text", mode: FileMode.append)
       ..writeAsStringSync("\n", mode: FileMode.append);
   }
 
   /// get the flutter asset path from yaml
   List<String> _getAssetPath(String yamlPath) {
-    YamlMap map = loadYaml(new File(yamlPath).readAsStringSync());
+    YamlMap map = loadYaml(File(yamlPath).readAsStringSync());
     // writeText(map.toString());
-    var flutterMap = map["flutter"];
+    final flutterMap = map["flutter"];
     if (flutterMap is YamlMap) {
       // writeText("flutterMap is yamlMap");
-      var assetMap = flutterMap["assets"];
+      final assetMap = flutterMap["assets"];
       if (assetMap is YamlList) {
         // writeText("assetMap is YamlList");
         return getListFromYamlList(assetMap);
@@ -75,7 +75,7 @@ class ResourceDartBuilder {
   /// get the asset from yaml list
   List<String> getListFromYamlList(YamlList yamlList) {
     List<String> list = [];
-    var r = yamlList.map((f) {
+    final r = yamlList.map((f) {
       // writeTempText("file = $f , type is ${f.runtimeType}");
       return f.toString();
     }).toList();
@@ -89,7 +89,7 @@ class ResourceDartBuilder {
   }
 
   /// the set is all file path，not exists directory
-  Set<String> imageSet = new Set();
+  final imageSet = Set<String>();
 
   /// all of the directory with yaml.
   List<Directory> dirList = [];
@@ -100,7 +100,7 @@ class ResourceDartBuilder {
     dirList.clear();
 
     paths.forEach((path) {
-      // File file = new File(path);
+      // File file =  File(path);
       // Directory
       generateImageFileWithPath(path, imageSet, dirList, true);
     });
@@ -115,14 +115,14 @@ class ResourceDartBuilder {
       if (!rootPath) {
         return;
       }
-      Directory directory = new Directory(fullPath);
+      Directory directory = Directory(fullPath);
       dirList.add(directory);
-      var entries = directory.listSync(recursive: false);
+      final entries = directory.listSync(recursive: false);
       entries.forEach((entity) {
         generateImageFileWithPath(entity.path, imageSet, dirList, false);
       });
     } else if (FileSystemEntity.isFileSync(fullPath)) {
-      var relativePath = path.replaceAll(projectRootPath + separator, "");
+      final relativePath = path.replaceAll(projectRootPath + separator, "");
       if (!imageSet.contains(path)) {
         imageSet.add(relativePath);
       }
@@ -130,20 +130,20 @@ class ResourceDartBuilder {
   }
 
   String _getAbsolutePath(String path) {
-    var f = File(path);
+    final f = File(path);
     if (f.isAbsolute) {
       return path;
     }
     return "${projectRootPath}/$path";
   }
 
-  var isWriting = false;
+  final isWriting = false;
   File _resourceFile;
   File get resourceFile {
     if (File(outputPath).isAbsolute) {
-      _resourceFile ??= new File(outputPath);
+      _resourceFile ??= File(outputPath);
     } else {
-      _resourceFile ??= new File('$projectRootPath/$outputPath');
+      _resourceFile ??= File('$projectRootPath/$outputPath');
     }
 
     _resourceFile.createSync(recursive: true);
@@ -155,12 +155,12 @@ class ResourceDartBuilder {
     writeText("start write code");
     resourceFile.deleteSync(recursive: true);
     resourceFile.createSync(recursive: true);
-    var lock = resourceFile.openWrite(mode: FileMode.append);
-    var generate = (String text) {
+    final lock = resourceFile.openWrite(mode: FileMode.append);
+    final generate = (String text) {
       lock.write(text);
     };
 
-    var template = new Template();
+    final template = Template();
     generate(template.license);
     generate(template.classDeclare);
     allImageList.forEach((path) {
@@ -181,7 +181,7 @@ class ResourceDartBuilder {
       final sub = _watch(dir);
       watchMap[dir] = sub;
     });
-    File pubspec = new File("$projectRootPath${separator}pubspec.yaml");
+    File pubspec = File("$projectRootPath${separator}pubspec.yaml");
     final sub = _watch(pubspec);
     watchMap[pubspec] = sub;
 

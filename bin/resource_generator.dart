@@ -6,7 +6,7 @@ import 'package:path/path.dart' as path_library;
 
 String get separator => path_library.separator;
 void main(List<String> args) {
-  var parser = new ArgParser();
+  final parser = ArgParser();
   parser.addFlag(
     "watch",
     abbr: 'w',
@@ -30,7 +30,7 @@ void main(List<String> args) {
 
   parser.addFlag("debug", abbr: 'd', help: "debug info", defaultsTo: false);
 
-  var results = parser.parse(args);
+  final results = parser.parse(args);
 
   Logger().isDebug = results["debug"];
 
@@ -41,14 +41,14 @@ void main(List<String> args) {
 
   String path = results["src"];
   String outputPath = results["output"];
-  var workPath = File(path).absolute;
+  final workPath = File(path).absolute;
   print("Generate files for Project : " + workPath.absolute.path);
 
   check(workPath, outputPath, results["watch"]);
 }
 
 void check(File workPath, String outputPath, bool isWatch) {
-  var builder = ResourceDartBuilder(workPath.absolute.path, outputPath);
+  final builder = ResourceDartBuilder(workPath.absolute.path, outputPath);
   builder.generateResourceDartFile();
   builder.isWatch = isWatch;
   builder.watchFileChange();

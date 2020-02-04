@@ -10,7 +10,7 @@ class Template {
 
   String formatFiled(String path, String projectPath) {
     return """
-    
+
   /// ![preview](file://${projectPath}${path_library.separator}${_formatPreviewName(path)})
   static const String ${_formatFiledName(path)} = "$path";\n""";
   }

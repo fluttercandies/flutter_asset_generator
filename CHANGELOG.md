@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.4]
+
+Fix a error for template.
+
 ## [0.4.3]
 
 Fix typos in codes and template.
