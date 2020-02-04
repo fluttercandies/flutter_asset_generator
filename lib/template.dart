@@ -2,8 +2,8 @@ import 'package:path/path.dart' as path_library;
 
 class Template {
   String license =
-      """/// Generate by resource_generator library, PLEASE DO NOT EDIT 
-      MANUALLY.\n""";
+      """/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
+/// PLEASE DO NOT EDIT MANUALLY.\n""";
 
   String get classDeclare => "class R {\n";
   String get classDeclareFooter => "}\n";
