@@ -1,6 +1,4 @@
 class Logger {
-  static Logger _instance;
-
   factory Logger() {
     _instance ??= Logger._();
     return _instance;
@@ -8,7 +6,9 @@ class Logger {
 
   Logger._();
 
-  var isDebug = false;
+  static Logger _instance;
+
+  bool isDebug = false;
 
   void debug(Object msg) {
     if (isDebug) {
