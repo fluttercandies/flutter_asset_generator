@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.5]
+
+Update codes and generated codes according to analyzer options.
+
 ## [0.4.4]
 
 Fix a error for template.
