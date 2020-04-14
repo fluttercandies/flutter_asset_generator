@@ -21,10 +21,12 @@ class Template {
   }
 
   String _formatFiledName(String path) {
-    path = path.replaceAll('/', '_');
-    path = path.replaceAll('.', '_');
-    path = path.replaceAll(' ', '_');
-    path = path.replaceAll('-', '_');
+    path = path
+        .replaceAll('/', '_')
+        .replaceAll('.', '_')
+        .replaceAll(' ', '_')
+        .replaceAll('-', '_')
+        .replaceAll('@', '_AT_');
     return path.toUpperCase();
   }
 

@@ -1,11 +1,15 @@
 /// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
 /// PLEASE DO NOT EDIT MANUALLY.
 class R {
+
   /// ![preview](file:///private/tmp/flutter_resource_generator/example/./assets/address%20space.png)
   static const String ASSETS_ADDRESS_SPACE_PNG = 'assets/address space.png';
 
   /// ![preview](file:///private/tmp/flutter_resource_generator/example/./assets/address.png)
   static const String ASSETS_ADDRESS_PNG = 'assets/address.png';
+
+  /// ![preview](file:///private/tmp/flutter_resource_generator/example/./assets/address@at.png)
+  static const String ASSETS_ADDRESS_AT_AT_PNG = 'assets/address@at.png';
 
   /// ![preview](file:///private/tmp/flutter_resource_generator/example/./assets/bluetoothon-fjdfj.png)
   static const String ASSETS_BLUETOOTHON_FJDFJ_PNG = 'assets/bluetoothon-fjdfj.png';
