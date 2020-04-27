@@ -1,11 +1,11 @@
 name: flutter_asset_generator
 email: cjl_spy@163.com
 homepage: https://github.com/CaiJingLong/flutter_resource_generator
-version: 0.4.5
+version: 0.4.6
 description: Automatically generate a resource file by scanning pubspec.yaml to correspond to the flutter's asset, imitation R file short name.
 
 environment:
-  sdk: '>=2.0.0-dev.51.0 <3.0.0'
+  sdk: ">=2.0.0-dev.51.0 <3.0.0"
 
 dependencies:
   args: ^1.5.2

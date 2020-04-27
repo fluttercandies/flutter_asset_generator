@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.6]
+
+Fixed watch file problem.
+
 ## [0.4.5]
 
 Update codes and generated codes according to analyzer options.

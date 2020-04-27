@@ -52,7 +52,6 @@ void main(List<String> args) {
 void check(File workPath, String outputPath, bool isWatch) {
   final ResourceDartBuilder builder =
       ResourceDartBuilder(workPath.absolute.path, outputPath);
-  builder.generateResourceDartFile();
   builder.isWatch = isWatch;
-  builder.watchFileChange();
+  builder.generateResourceDartFile();
 }

@@ -16,7 +16,10 @@ class ResourceDartBuilder {
 
   bool isWatch = false;
 
+  bool _watching = false;
+
   void generateResourceDartFile() {
+    stopWatch();
     print('Prepare generate resource dart file.');
     final String pubYamlPath = '$projectRootPath${separator}pubspec.yaml';
     try {
@@ -35,7 +38,7 @@ class ResourceDartBuilder {
     }
     print('Generate dart resource file finish.');
 
-    watchFileChange();
+    startWatch();
   }
 
   File get logFile => File('.dart_tool${separator}log.txt');
@@ -160,6 +163,7 @@ class ResourceDartBuilder {
 
   /// generate the dart code
   void generateCode() {
+    stopWatch();
     writeText('start write code');
     resourceFile.deleteSync(recursive: true);
     resourceFile.createSync(recursive: true);
@@ -181,11 +185,14 @@ class ResourceDartBuilder {
   }
 
   /// watch all of path
-  Future<void> watchFileChange() async {
+  Future<void> startWatch() async {
     if (!isWatch) {
       return;
     }
-    isWatch = true;
+    if (_watching) {
+      return;
+    }
+    _watching = true;
     for (final Directory dir in dirList) {
       final StreamSubscription<FileSystemEvent> sub = _watch(dir);
       if (sub != null) {
@@ -196,11 +203,19 @@ class ResourceDartBuilder {
     final File pubspec = File('$projectRootPath${separator}pubspec.yaml');
     final StreamSubscription<FileSystemEvent> sub = _watch(pubspec);
     if (sub != null) {
-      sub.onDone(sub.cancel);
+      watchMap[pubspec] = sub;
     }
-    watchMap[pubspec] = sub;
 
     print('watching files watch');
+  }
+
+  void stopWatch() {
+    _watching = false;
+    for (final StreamSubscription<FileSystemEvent> v in watchMap.values) {
+      v.cancel();
+    }
+
+    watchMap.clear();
   }
 
   /// when the directory is change
