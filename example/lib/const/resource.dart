@@ -8,9 +8,6 @@ class R {
   /// ![preview](file:///Volumes/Evo512/code/dart/flutter_resource_generator/example/assets/address@at.png)
   static const String ASSETS_ADDRESS_AT_AT_PNG = 'assets/address@at.png';
 
-  /// ![preview](file:///Volumes/Evo512/code/dart/flutter_resource_generator/example/assets/address_space.png)
-  static const String ASSETS_ADDRESS_SPACE_PNG = 'assets/address_space.png';
-
   /// ![preview](file:///Volumes/Evo512/code/dart/flutter_resource_generator/example/assets/bluetoothon-fjdfj.png)
   static const String ASSETS_BLUETOOTHON_FJDFJ_PNG = 'assets/bluetoothon-fjdfj.png';
 
@@ -19,6 +16,9 @@ class R {
 
   /// ![preview](file:///Volumes/Evo512/code/dart/flutter_resource_generator/example/assets/camera.png)
   static const String ASSETS_CAMERA_PNG = 'assets/camera.png';
+
+  /// ![preview](file:///Volumes/Evo512/code/dart/flutter_resource_generator/example/images/address%20space.png)
+  static const String IMAGES_ADDRESS_SPACE_PNG = 'images/address space.png';
 
   /// ![preview](file:///Volumes/Evo512/code/dart/flutter_resource_generator/example/images/address.png)
   static const String IMAGES_ADDRESS_PNG = 'images/address.png';
