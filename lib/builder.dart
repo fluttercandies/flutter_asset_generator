@@ -12,7 +12,9 @@ const int serverPort = 31313;
 Logger logger = Logger();
 
 class ResourceDartBuilder {
-  ResourceDartBuilder(this.projectRootPath, this.outputPath);
+  ResourceDartBuilder(String projectRootPath, this.outputPath) {
+    this.projectRootPath = projectRootPath.replaceAll('$separator.', '');
+  }
 
   bool isWatch = false;
 
@@ -131,8 +133,9 @@ class ResourceDartBuilder {
         generateImageFileWithPath(entity.path, imageSet, dirList, false);
       }
     } else if (FileSystemEntity.isFileSync(fullPath)) {
-      final String relativePath =
-          path.replaceAll(projectRootPath + separator, '');
+      final String relativePath = path
+          .replaceAll('$projectRootPath$separator', '')
+          .replaceAll('$projectRootPath/', '');
       if (!imageSet.contains(path)) {
         imageSet.add(relativePath);
       }
