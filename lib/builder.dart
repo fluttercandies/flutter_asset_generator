@@ -21,8 +21,8 @@ class ResourceDartBuilder {
   bool _watching = false;
 
   void generateResourceDartFile() {
+    print('Generating files for Project: $projectRootPath');
     stopWatch();
-    print('Prepare generate resource dart file.');
     final String pubYamlPath = '$projectRootPath${separator}pubspec.yaml';
     try {
       final List<String> assetPathList = _getAssetPath(pubYamlPath);

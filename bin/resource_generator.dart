@@ -44,7 +44,6 @@ void main(List<String> args) {
   final String path = results['src'] as String;
   final String outputPath = results['output'] as String;
   final File workPath = File(path).absolute;
-  print('Generate files for Project : ' + workPath.absolute.path);
 
   check(workPath, outputPath, results['watch'] as bool);
 }
