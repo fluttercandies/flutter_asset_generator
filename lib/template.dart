@@ -16,7 +16,7 @@ class Template {
   }
 
   String _formatPreviewName(String path) {
-    path = path.replaceAll(' ', '%20');
+    path = path.replaceAll(' ', '%20').replaceAll('/', path_library.separator);
     return path;
   }
 
@@ -31,6 +31,6 @@ class Template {
   }
 
   String toUppercaseFirstLetter(String str) {
-    return str[0].toUpperCase() + str.substring(1);
+    return '${str[0].toUpperCase()}${str.substring(1)}';
   }
 }

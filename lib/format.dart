@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:io/ansi.dart';
+import 'package:path/path.dart';
 
 Future<void> formatFile(File file) async {
   if (file == null) {
@@ -8,13 +9,15 @@ Future<void> formatFile(File file) async {
   }
 
   if (!file.existsSync()) {
-    print(red.wrap('format error: ${file?.absolute?.path} doesn\'t exist\n'));
+    print(red.wrap('format error: ${file?.absolute?.path} does not exist\n'));
     return;
   }
 
+  final String path = file?.absolute?.path?.replaceAll('/', separator);
+
   processRunSync(
     executable: 'flutter',
-    arguments: 'format ${file?.absolute?.path}',
+    arguments: 'format $path',
     runInShell: true,
   );
 }

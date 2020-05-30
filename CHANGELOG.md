@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.7]
+
+Fix path separator issue on Windows.
+
 ## [0.4.6]
 
 Fixed watch file problem.
