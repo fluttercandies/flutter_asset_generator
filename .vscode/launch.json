@@ -9,7 +9,10 @@
       "program": "bin/resource_generator.dart",
       "request": "launch",
       "type": "dart",
-      "args": ["./example"]
+      "args": [
+        "./example",
+        "-w"
+      ]
     }
   ]
 }

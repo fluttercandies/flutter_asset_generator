@@ -32,6 +32,14 @@ void main(List<String> args) {
 
   parser.addFlag('debug', abbr: 'd', help: 'debug info', defaultsTo: false);
 
+  parser.addFlag(
+    'preview',
+    abbr: 'p',
+    help:
+        'Enable preview comments, defaults to true, use --no-preview to disable this functionality',
+    defaultsTo: true,
+  );
+
   final ArgResults results = parser.parse(args);
 
   Logger().isDebug = results['debug'] as bool;
@@ -45,12 +53,14 @@ void main(List<String> args) {
   final String outputPath = results['output'] as String;
   final File workPath = File(path).absolute;
 
-  check(workPath, outputPath, results['watch'] as bool);
+  check(workPath, outputPath, results['watch'] as bool,
+      results['preview'] as bool);
 }
 
-void check(File workPath, String outputPath, bool isWatch) {
+void check(File workPath, String outputPath, bool isWatch, bool isPreview) {
   final ResourceDartBuilder builder =
       ResourceDartBuilder(workPath.absolute.path, outputPath);
   builder.isWatch = isWatch;
+  builder.isPreview = isPreview;
   builder.generateResourceDartFile();
 }

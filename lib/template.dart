@@ -8,11 +8,17 @@ class Template {
   String get classDeclare => 'class R {\n';
   String get classDeclareFooter => '}\n';
 
-  String formatFiled(String path, String projectPath) {
-    return '''
+  String formatFiled(String path, String projectPath, bool isPreview) {
+    if (isPreview) {
+      return '''
 
   /// ![preview](file://$projectPath${path_library.separator}${_formatPreviewName(path)})
   static const String ${_formatFiledName(path)} = '$path';\n''';
+    } else {
+      return '''
+    
+  static const String ${_formatFiledName(path)} = '$path';\n''';
+    }
   }
 
   String _formatPreviewName(String path) {
