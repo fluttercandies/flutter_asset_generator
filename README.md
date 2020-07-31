@@ -66,6 +66,8 @@ fgen -h
                     (defaults to ".")
 
 -h, --[no-]help     Help usage
+
+-p, --[no-]preview  Generate file with preview comments
 ```
 
 ## File name
