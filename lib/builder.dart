@@ -20,6 +20,8 @@ class ResourceDartBuilder {
 
   bool _watching = false;
 
+  bool isPreview = true;
+
   void generateResourceDartFile() {
     print('Generating files for Project: $projectRootPath');
     stopWatch();
@@ -179,7 +181,7 @@ class ResourceDartBuilder {
     generate(template.license);
     generate(template.classDeclare);
     for (final String path in allImageList) {
-      generate(template.formatFiled(path, projectRootPath));
+      generate(template.formatFiled(path, projectRootPath, isPreview));
     }
     generate(template.classDeclareFooter);
     lock.close();
