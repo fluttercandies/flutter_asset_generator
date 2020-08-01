@@ -6,13 +6,13 @@
 
 [English](https://github.com/CaiJingLong/flutter_resource_generator)
 
-- [flutter_asset_generator](#flutterassetgenerator)
-  - [截图](#%e6%88%aa%e5%9b%be)
-  - [安装及使用](#%e5%ae%89%e8%a3%85%e5%8f%8a%e4%bd%bf%e7%94%a8)
-    - [使用源码的方式](#%e4%bd%bf%e7%94%a8%e6%ba%90%e7%a0%81%e7%9a%84%e6%96%b9%e5%bc%8f)
+- [flutter_asset_generator](#flutter_asset_generator)
+  - [截图](#截图)
+  - [安装及使用](#安装及使用)
+    - [使用源码的方式](#使用源码的方式)
     - [pub global](#pub-global)
-    - [支持的命令行参数](#%e6%94%af%e6%8c%81%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%8f%82%e6%95%b0)
-  - [关于文件名](#%e5%85%b3%e4%ba%8e%e6%96%87%e4%bb%b6%e5%90%8d)
+    - [支持的命令行参数](#支持的命令行参数)
+  - [关于文件名](#关于文件名)
 
 ## 截图
 
@@ -75,17 +75,17 @@ fgen -s .
 
 ```bash
 fgen -h
--w, --[no-]watch    Continue to monitor changes after execution of orders.
-                    (defaults to on)
-
--o, --output        Your resource file path.
-                    If it's a relative path, the relative flutter root directory
-                    (defaults to "lib/const/resource.dart")
-
--s, --src           Flutter project root path
-                    (defaults to ".")
-
--h, --[no-]help     Help usage
+-w, --[no-]watch      Continue to monitor changes after execution of orders.
+                      (defaults to on)
+-o, --output          Your resource file path. 
+                      If it's a relative path, the relative flutter root directory
+                      (defaults to "lib/const/resource.dart")
+-s, --src             Flutter project root path
+                      (defaults to ".")
+-h, --[no-]help       Help usage
+-d, --[no-]debug      debug info
+-p, --[no-]preview    Enable preview comments, defaults to true, use --no-preview to disable this functionality
+                      (defaults to on)
 ```
 
 -s 是 flutter 目录

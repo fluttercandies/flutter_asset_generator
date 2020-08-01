@@ -1,5 +1,9 @@
 # Change log
 
+## [0.4.8]
+
+Add an option: `preview`.
+
 ## [0.4.7]
 
 Fix path separator issue on Windows.
