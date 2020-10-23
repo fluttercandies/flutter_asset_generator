@@ -1,0 +1,5 @@
+exclude:
+  - "*.png"
+
+include:
+  - "a*.jpg"

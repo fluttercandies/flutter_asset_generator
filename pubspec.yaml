@@ -12,6 +12,7 @@ dependencies:
   io: ^0.3.3
   path: ^1.6.4
   yaml: ^2.1.16
+  glob: ^1.2.0
 
 executables:
   fgen: resource_generator
