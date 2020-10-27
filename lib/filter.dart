@@ -1,31 +1,28 @@
 import 'dart:io';
 import 'package:glob/glob.dart';
 import 'package:yaml/yaml.dart';
-import 'package:path/path.dart';
 
 class Filter {
   Filter(String text) : map = loadYaml(text) as YamlMap;
 
   final YamlMap map;
 
-  List<FileSystemEntity> filter(List<FileSystemEntity> files) {
+  Iterable<String> filter(Iterable<String> pathList) {
     final List<Glob> includeList = _loadList('include', true);
     final List<Glob> excludeList = _loadList('exclude');
 
-    Iterable<FileSystemEntity> tmp = files.where((FileSystemEntity element) {
-      final String name = element.absolute.path.split(separator).last;
+    Iterable<String> tmp = pathList.where((String element) {
       for (final Glob glob in includeList) {
-        if (glob.matches(name)) {
+        if (glob.matches(element)) {
           return true;
         }
       }
       return false;
     });
 
-    tmp = tmp.where((FileSystemEntity element) {
-      final String name = element.absolute.path.split(separator).last;
+    tmp = tmp.where((String element) {
       for (final Glob glob in excludeList) {
-        if (glob.matches(name)) {
+        if (glob.matches(element)) {
           return false;
         }
       }

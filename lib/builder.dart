@@ -116,12 +116,20 @@ class ResourceDartBuilder {
     imageSet.clear();
     dirList.clear();
 
-    // do filter
-
     for (final String path in paths) {
       // File file =  File(path);
       // Directory
       generateImageFileWithPath(path, imageSet, dirList, true);
+    }
+
+    // do filter
+    if (filter != null) {
+      final Iterable<String> result = filter.filter(imageSet);
+      print(result);
+
+      imageSet.clear();
+      imageSet.addAll(result);
+      print(imageSet);
     }
   }
 

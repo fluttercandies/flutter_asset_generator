@@ -1,5 +1,8 @@
 exclude:
-  - "*.png"
+  - "**/add*.png"
+  - "**_**"
 
 include:
-  - "a*.jpg"
+  - "**/a*.png"
+  - "**/b*"
+  - "**/c*"
