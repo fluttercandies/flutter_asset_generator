@@ -1,5 +1,9 @@
 # Change log
 
+## [0.5.1]
+
+Remove some logs, use dart_style to format code.
+
 ## [0.5.0]
 
 Support config file to include and exclude asset files.
