@@ -125,11 +125,8 @@ class ResourceDartBuilder {
     // do filter
     if (filter != null) {
       final Iterable<String> result = filter.filter(imageSet);
-      print(result);
-
       imageSet.clear();
       imageSet.addAll(result);
-      print(imageSet);
     }
   }
 
@@ -191,21 +188,25 @@ class ResourceDartBuilder {
     writeText('start write code');
     resourceFile.deleteSync(recursive: true);
     resourceFile.createSync(recursive: true);
-    final IOSink lock = resourceFile.openWrite(mode: FileMode.append);
-    final Function(String) generate = (String text) {
-      lock.write(text);
-    };
 
+    final StringBuffer source = StringBuffer();
     final Template template = Template();
-    generate(template.license);
-    generate(template.classDeclare);
+    source.write(template.license);
+    source.write(template.classDeclare);
     for (final String path in allImageList) {
-      generate(template.formatFiled(path, projectRootPath, isPreview));
+      source.write(template.formatFiled(path, projectRootPath, isPreview));
     }
-    generate(template.classDeclareFooter);
-    lock.close();
-    formatFile(resourceFile);
-    writeText('end write code');
+    source.write(template.classDeclareFooter);
+
+    final Stopwatch sw = Stopwatch();
+    sw.start();
+    final String formattedCode = formatFile(source.toString());
+    sw.stop();
+    print('format code ${sw.elapsedMilliseconds}ms');
+    sw.reset();
+    resourceFile.writeAsString(formattedCode);
+    sw.stop();
+    writeText('end write code ${sw.elapsedMilliseconds}');
   }
 
   /// watch all of path
