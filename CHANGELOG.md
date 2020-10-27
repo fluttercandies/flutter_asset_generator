@@ -1,5 +1,9 @@
 # Change log
 
+## [0.5.0]
+
+Support config file to include and exclude asset files.
+
 ## [0.4.8]
 
 Add an option: `preview`.
