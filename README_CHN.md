@@ -13,6 +13,9 @@
     - [pub global](#pub-global)
     - [支持的命令行参数](#支持的命令行参数)
   - [关于文件名](#关于文件名)
+  - [配置文件](#配置文件)
+    - [排除和导入](#排除和导入)
+      - [典型示例](#典型示例)
 
 ## 截图
 
@@ -38,7 +41,7 @@ dart bin/resource_generator.dart ./example
 
 添加 pub,dart 到 `$PATH` 环境变量下, 如果不添加也可以, 使用 dart,pub 全路径也可以
 
-参阅 https://www.dartlang.org/tools/pub/cmd/pub-global#running-a-script-from-your-path 添加`~/.pub-cache/bin` 至环境变量下(window 请查阅文档)
+参阅 [官方文档][pub global] 添加`~/.pub-cache/bin` 至环境变量下(window 请查阅文档)
 
 保证
 
@@ -77,7 +80,7 @@ fgen -s .
 fgen -h
 -w, --[no-]watch      Continue to monitor changes after execution of orders.
                       (defaults to on)
--o, --output          Your resource file path. 
+-o, --output          Your resource file path.
                       If it's a relative path, the relative flutter root directory
                       (defaults to "lib/const/resource.dart")
 -s, --src             Flutter project root path
@@ -120,3 +123,81 @@ fgen -h
 ```
 
 因为两个的字段命名方式是完全相同的
+
+## 配置文件
+
+配置文件为约定式，**不支持**通过命令指定，该文件为项目根目录下（与`pubspec.yaml`同级）下的`fgen.yaml`
+
+### 排除和导入
+
+使用`glob`语法
+
+其中 `exclude`节点下为排除的文件名，类型是字符串数组，如未包含任何规则则表示不排除任何文件
+
+`include`表示需要导入的文件名，字符串数组，如果未包含任何规则表示允许所有
+
+优先级方面，exclude 高于 include，换句话说：
+
+先根据 include 节点导入文件，然后 exclude 排除文件
+
+#### 典型示例
+
+```yaml
+exclude:
+  - "**/add*.png"
+  - "**_**"
+
+include:
+  - "**/a*.png"
+  - "**/b*"
+  - "**/c*"
+```
+
+```sh
+assets
+├── address.png   # exclude by "**/add*.png"
+├── address@at.png  # exclude by "**/add*.png"
+├── bluetoothon-fjdfj.png
+├── bluetoothon.png
+└── camera.png
+
+images
+├── address space.png  # exclude by "**/add*.png"
+├── address.png  # exclude by "**/add*.png"
+├── addto.png  # exclude by "**/add*.png"
+├── audio.png
+├── bluetooth_link.png  # exclude by **_**
+├── bluetoothoff.png
+├── child.png
+└── course.png
+```
+
+```dart
+/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
+/// PLEASE DO NOT EDIT MANUALLY.
+class R {
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/assets/bluetoothon-fjdfj.png)
+  static const String ASSETS_BLUETOOTHON_FJDFJ_PNG = 'assets/bluetoothon-fjdfj.png';
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/assets/bluetoothon.png)
+  static const String ASSETS_BLUETOOTHON_PNG = 'assets/bluetoothon.png';
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/assets/camera.png)
+  static const String ASSETS_CAMERA_PNG = 'assets/camera.png';
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/images/audio.png)
+  static const String IMAGES_AUDIO_PNG = 'images/audio.png';
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/images/bluetoothoff.png)
+  static const String IMAGES_BLUETOOTHOFF_PNG = 'images/bluetoothoff.png';
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/images/child.png)
+  static const String IMAGES_CHILD_PNG = 'images/child.png';
+
+  /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/images/course.png)
+  static const String IMAGES_COURSE_PNG = 'images/course.png';
+}
+```
+
+[pub global]: https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path

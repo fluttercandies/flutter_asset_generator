@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:yaml/yaml.dart';
 import 'package:path/path.dart';
 
+import 'filter.dart';
 import 'format.dart';
 import 'logger.dart';
 import 'template.dart';
@@ -14,7 +15,15 @@ Logger logger = Logger();
 class ResourceDartBuilder {
   ResourceDartBuilder(String projectRootPath, this.outputPath) {
     this.projectRootPath = projectRootPath.replaceAll('$separator.', '');
+
+    final File yamlFile = File('$projectRootPath/fgen.yaml');
+    if (yamlFile.existsSync()) {
+      final String text = yamlFile.readAsStringSync();
+      filter = Filter(text);
+    }
   }
+
+  Filter filter;
 
   bool isWatch = false;
 
@@ -112,6 +121,16 @@ class ResourceDartBuilder {
       // Directory
       generateImageFileWithPath(path, imageSet, dirList, true);
     }
+
+    // do filter
+    if (filter != null) {
+      final Iterable<String> result = filter.filter(imageSet);
+      print(result);
+
+      imageSet.clear();
+      imageSet.addAll(result);
+      print(imageSet);
+    }
   }
 
   /// if path is a directory ,add the directory to [dirList]
@@ -206,6 +225,7 @@ class ResourceDartBuilder {
       watchMap[dir] = sub;
     }
     final File pubspec = File('$projectRootPath${separator}pubspec.yaml');
+    // ignore: cancel_subscriptions
     final StreamSubscription<FileSystemEvent> sub = _watch(pubspec);
     if (sub != null) {
       watchMap[pubspec] = sub;
