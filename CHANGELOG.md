@@ -1,5 +1,9 @@
 # Change log
 
+## [0.6.0]
+
+Add an option: `name`. Allow class name customization.
+
 ## [0.5.1]
 
 Remove some logs, use dart_style to format code.
