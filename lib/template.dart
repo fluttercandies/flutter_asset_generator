@@ -1,11 +1,15 @@
 import 'package:path/path.dart' as path_library;
 
 class Template {
+  Template(this.className);
+
+  final String className;
+
   String license =
       '''/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
 /// PLEASE DO NOT EDIT MANUALLY.\n''';
 
-  String get classDeclare => 'class R {\n';
+  String get classDeclare => 'class ${className ?? 'R'} {\n';
   String get classDeclareFooter => '}\n';
 
   String formatFiled(String path, String projectPath, bool isPreview) {

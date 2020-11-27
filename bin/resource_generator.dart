@@ -28,6 +28,12 @@ void main(List<String> args) {
     defaultsTo: '.',
     help: 'Flutter project root path',
   );
+  parser.addOption(
+    'name',
+    abbr: 'n',
+    defaultsTo: 'R',
+    help: 'The class name for the constant.',
+  );
   parser.addFlag('help', abbr: 'h', help: 'Help usage', defaultsTo: false);
 
   parser.addFlag('debug', abbr: 'd', help: 'debug info', defaultsTo: false);
@@ -50,17 +56,29 @@ void main(List<String> args) {
   }
 
   final String path = results['src'] as String;
+  final String className = results['name'] as String;
   final String outputPath = results['output'] as String;
   final File workPath = File(path).absolute;
 
-  check(workPath, outputPath, results['watch'] as bool,
-      results['preview'] as bool);
+  check(
+    workPath,
+    outputPath,
+    className,
+    results['watch'] as bool,
+    results['preview'] as bool,
+  );
 }
 
-void check(File workPath, String outputPath, bool isWatch, bool isPreview) {
+void check(
+  File workPath,
+  String outputPath,
+  String className,
+  bool isWatch,
+  bool isPreview,
+) {
   final ResourceDartBuilder builder =
       ResourceDartBuilder(workPath.absolute.path, outputPath);
   builder.isWatch = isWatch;
   builder.isPreview = isPreview;
-  builder.generateResourceDartFile();
+  builder.generateResourceDartFile(className);
 }
