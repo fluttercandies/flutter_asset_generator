@@ -78,17 +78,25 @@ fgen -s .
 
 ```bash
 fgen -h
--w, --[no-]watch      Continue to monitor changes after execution of orders.
-                      (defaults to on)
--o, --output          Your resource file path.
-                      If it's a relative path, the relative flutter root directory
-                      (defaults to "lib/const/resource.dart")
--s, --src             Flutter project root path
-                      (defaults to ".")
--h, --[no-]help       Help usage
--d, --[no-]debug      debug info
--p, --[no-]preview    Enable preview comments, defaults to true, use --no-preview to disable this functionality
-                      (defaults to on)
+-w, --[no-]watch    Continue to monitor changes after execution of orders.
+                    (defaults to on)
+
+-p, --[no-]preview  Generate file with preview comments.
+                    (defaults to on)
+
+-o, --output        Your resource file path.
+                    If it's a relative path, the relative flutter root directory
+                    (defaults to "lib/const/resource.dart")
+
+-s, --src           Flutter project root path
+                    (defaults to ".")
+
+-n, --name          The class name for the constant.
+                    (defaults to "R")
+
+-h, --[no-]help     Help usage
+
+-d, --[no-]debug    debug info
 ```
 
 -s 是 flutter 目录
@@ -101,7 +109,7 @@ fgen -h
 
 ## 关于文件名
 
-文件中的空格,`/`,`-`,`.`会被转为`_`
+文件中的空格、`/`、`-`、`.` 会被转为 `_`，`@` 会被转为 `_AT_`。
 
 转化的例子如下
 
