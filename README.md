@@ -61,6 +61,9 @@ fgen -h
 -w, --[no-]watch    Continue to monitor changes after execution of orders.
                     (defaults to on)
 
+-p, --[no-]preview  Generate file with preview comments.
+                    (defaults to on)
+
 -o, --output        Your resource file path.
                     If it's a relative path, the relative flutter root directory
                     (defaults to "lib/const/resource.dart")
@@ -68,14 +71,17 @@ fgen -h
 -s, --src           Flutter project root path
                     (defaults to ".")
 
+-n, --name          The class name for the constant.
+                    (defaults to "R")
+
 -h, --[no-]help     Help usage
 
--p, --[no-]preview  Generate file with preview comments
+-d, --[no-]debug    debug info
 ```
 
 ## File name
 
-`Space`, '.' and '-' in the path are converted to `_`.
+`Space`, '.' and '-' in the path will be converted to `_`. `@` will be converted to `_AT_`.
 
 convert filed name example:
 
