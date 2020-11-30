@@ -20,7 +20,7 @@ class Template {
   static const String ${_formatFiledName(path)} = '$path';\n''';
     } else {
       return '''
-    
+
   static const String ${_formatFiledName(path)} = '$path';\n''';
     }
   }
