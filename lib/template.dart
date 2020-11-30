@@ -9,7 +9,8 @@ class Template {
       '''/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
 /// PLEASE DO NOT EDIT MANUALLY.\n''';
 
-  String get classDeclare => 'class ${className ?? 'R'} {\n';
+  String get classDeclare => '''class $className {\n
+  const $className._();\n''';
   String get classDeclareFooter => '}\n';
 
   String formatFiled(String path, String projectPath, bool isPreview) {
