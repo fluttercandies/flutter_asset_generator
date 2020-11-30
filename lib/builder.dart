@@ -31,7 +31,7 @@ class ResourceDartBuilder {
 
   bool isPreview = true;
 
-  void generateResourceDartFile() {
+  void generateResourceDartFile(String className) {
     print('Generating files for Project: $projectRootPath');
     stopWatch();
     final String pubYamlPath = '$projectRootPath${separator}pubspec.yaml';
@@ -41,7 +41,7 @@ class ResourceDartBuilder {
       generateImageFiles(assetPathList);
       writeText('allImageList = $allImageList');
       logger.debug('the image is $allImageList');
-      generateCode();
+      generateCode(className);
     } catch (e) {
       if (e is StackOverflowError) {
         writeText(e.stackTrace);
@@ -51,7 +51,7 @@ class ResourceDartBuilder {
     }
     print('Generate dart resource file finish.');
 
-    startWatch();
+    startWatch(className);
   }
 
   File get logFile => File('.dart_tool${separator}log.txt');
@@ -183,14 +183,14 @@ class ResourceDartBuilder {
   }
 
   /// generate the dart code
-  void generateCode() {
+  void generateCode(String className) {
     stopWatch();
     writeText('start write code');
     resourceFile.deleteSync(recursive: true);
     resourceFile.createSync(recursive: true);
 
     final StringBuffer source = StringBuffer();
-    final Template template = Template();
+    final Template template = Template(className);
     source.write(template.license);
     source.write(template.classDeclare);
     for (final String path in allImageList) {
@@ -210,7 +210,7 @@ class ResourceDartBuilder {
   }
 
   /// watch all of path
-  Future<void> startWatch() async {
+  Future<void> startWatch(String className) async {
     if (!isWatch) {
       return;
     }
@@ -219,7 +219,7 @@ class ResourceDartBuilder {
     }
     _watching = true;
     for (final Directory dir in dirList) {
-      final StreamSubscription<FileSystemEvent> sub = _watch(dir);
+      final StreamSubscription<FileSystemEvent> sub = _watch(dir, className);
       if (sub != null) {
         sub.onDone(sub.cancel);
       }
@@ -227,7 +227,7 @@ class ResourceDartBuilder {
     }
     final File pubspec = File('$projectRootPath${separator}pubspec.yaml');
     // ignore: cancel_subscriptions
-    final StreamSubscription<FileSystemEvent> sub = _watch(pubspec);
+    final StreamSubscription<FileSystemEvent> sub = _watch(pubspec, className);
     if (sub != null) {
       watchMap[pubspec] = sub;
     }
@@ -246,11 +246,14 @@ class ResourceDartBuilder {
 
   /// when the directory is change
   /// refresh the code
-  StreamSubscription<FileSystemEvent> _watch(FileSystemEntity file) {
+  StreamSubscription<FileSystemEvent> _watch(
+    FileSystemEntity file,
+    String className,
+  ) {
     if (FileSystemEntity.isWatchSupported) {
       return file.watch().listen((FileSystemEvent data) {
         print('${data.path} is changed.');
-        generateResourceDartFile();
+        generateResourceDartFile(className);
       });
     }
     return null;
