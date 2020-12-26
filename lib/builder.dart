@@ -9,6 +9,13 @@ import 'format.dart';
 import 'logger.dart';
 import 'template.dart';
 
+const List<String> platformExcludeFiles = <String>[
+  // For MacOS
+  '.DS_Store',
+  // For Windows
+  'thumbs.db',
+  'desktop.ini',
+];
 const int serverPort = 31313;
 Logger logger = Logger();
 
@@ -151,6 +158,9 @@ class ResourceDartBuilder {
         generateImageFileWithPath(entity.path, imageSet, dirList, false);
       }
     } else if (FileSystemEntity.isFileSync(fullPath)) {
+      if (platformExcludeFiles.contains(basename(fullPath))) {
+        return;
+      }
       final String relativePath = path
           .replaceAll('$projectRootPath$separator', '')
           .replaceAll('$projectRootPath/', '');
