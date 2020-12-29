@@ -1,5 +1,9 @@
 # Change log
 
+## [0.6.1]
+
+Exclude `.DS_Store` for MacOS, `thumbs.db` and `desktop.ini` for Windows.
+
 ## [0.6.0]
 
 Add an option: `name`. Allow class name customization.
