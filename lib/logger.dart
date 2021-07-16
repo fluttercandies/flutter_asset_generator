@@ -1,12 +1,9 @@
 class Logger {
-  factory Logger() {
-    _instance ??= Logger._();
-    return _instance;
-  }
+  factory Logger() => _instance;
 
   Logger._();
 
-  static Logger _instance;
+  static late final Logger _instance = Logger._();
 
   bool isDebug = false;
 

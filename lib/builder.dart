@@ -30,7 +30,7 @@ class ResourceDartBuilder {
     }
   }
 
-  Filter filter;
+  Filter? filter;
 
   bool isWatch = false;
 
@@ -50,8 +50,8 @@ class ResourceDartBuilder {
       logger.debug('the image is $allImageList');
       generateCode(className);
     } catch (e) {
-      if (e is StackOverflowError) {
-        writeText(e.stackTrace);
+      if (e is StackOverflowError && e.stackTrace != null) {
+        writeText(e.stackTrace!);
       } else {
         writeText(e);
       }
@@ -63,12 +63,12 @@ class ResourceDartBuilder {
 
   File get logFile => File('.dart_tool${separator}log.txt');
 
-  String projectRootPath;
-  String outputPath;
+  late final String projectRootPath;
+  late final String outputPath;
 
   /// write the
   /// default file is a log file in the .dart_tools/log.txt
-  void writeText(Object text, {File file}) {
+  void writeText(Object text, {File? file}) {
     file ??= logFile;
     if (!file.existsSync()) {
       file.createSync(recursive: true);
@@ -131,7 +131,7 @@ class ResourceDartBuilder {
 
     // do filter
     if (filter != null) {
-      final Iterable<String> result = filter.filter(imageSet);
+      final Iterable<String> result = filter!.filter(imageSet);
       imageSet.clear();
       imageSet.addAll(result);
     }
@@ -179,7 +179,7 @@ class ResourceDartBuilder {
   }
 
   final bool isWriting = false;
-  File _resourceFile;
+  File? _resourceFile;
 
   File get resourceFile {
     if (File(outputPath).isAbsolute) {
@@ -188,8 +188,8 @@ class ResourceDartBuilder {
       _resourceFile ??= File('$projectRootPath/$outputPath');
     }
 
-    _resourceFile.createSync(recursive: true);
-    return _resourceFile;
+    _resourceFile!.createSync(recursive: true);
+    return _resourceFile!;
   }
 
   /// generate the dart code
@@ -229,7 +229,7 @@ class ResourceDartBuilder {
     }
     _watching = true;
     for (final Directory dir in dirList) {
-      final StreamSubscription<FileSystemEvent> sub = _watch(dir, className);
+      final StreamSubscription<FileSystemEvent>? sub = _watch(dir, className);
       if (sub != null) {
         sub.onDone(sub.cancel);
       }
@@ -237,7 +237,7 @@ class ResourceDartBuilder {
     }
     final File pubspec = File('$projectRootPath${separator}pubspec.yaml');
     // ignore: cancel_subscriptions
-    final StreamSubscription<FileSystemEvent> sub = _watch(pubspec, className);
+    final StreamSubscription<FileSystemEvent>? sub = _watch(pubspec, className);
     if (sub != null) {
       watchMap[pubspec] = sub;
     }
@@ -247,8 +247,8 @@ class ResourceDartBuilder {
 
   void stopWatch() {
     _watching = false;
-    for (final StreamSubscription<FileSystemEvent> v in watchMap.values) {
-      v.cancel();
+    for (final StreamSubscription<FileSystemEvent>? v in watchMap.values) {
+      v?.cancel();
     }
 
     watchMap.clear();
@@ -256,7 +256,7 @@ class ResourceDartBuilder {
 
   /// when the directory is change
   /// refresh the code
-  StreamSubscription<FileSystemEvent> _watch(
+  StreamSubscription<FileSystemEvent>? _watch(
     FileSystemEntity file,
     String className,
   ) {
@@ -269,11 +269,11 @@ class ResourceDartBuilder {
     return null;
   }
 
-  Map<FileSystemEntity, StreamSubscription<FileSystemEvent>> watchMap =
-      <FileSystemEntity, StreamSubscription<FileSystemEvent>>{};
+  Map<FileSystemEntity, StreamSubscription<FileSystemEvent>?> watchMap =
+      <FileSystemEntity, StreamSubscription<FileSystemEvent>?>{};
 
   void removeAllWatches() {
-    for (final StreamSubscription<FileSystemEvent> sub in watchMap.values) {
+    for (final StreamSubscription<FileSystemEvent>? sub in watchMap.values) {
       sub?.cancel();
     }
   }

@@ -3,9 +3,9 @@ import 'package:glob/glob.dart';
 import 'package:yaml/yaml.dart';
 
 class Filter {
-  Filter(String text) : map = loadYaml(text) as YamlMap;
+  Filter(String text) : map = loadYaml(text) as YamlMap?;
 
-  final YamlMap map;
+  final YamlMap? map;
 
   Iterable<String> filter(Iterable<String> pathList) {
     final List<Glob> includeList = _loadList('include', true);
@@ -34,12 +34,10 @@ class Filter {
 
   List<Glob> _loadList(String key, [bool emptyEqualsAll = false]) {
     try {
-      YamlList list;
+      YamlList? list;
 
-      if (map == null) {
-        list = null;
-      } else {
-        list = map[key] as YamlList;
+      if (map != null) {
+        list = map![key] as YamlList;
       }
 
       if (emptyEqualsAll && (list == null || list.isEmpty)) {
