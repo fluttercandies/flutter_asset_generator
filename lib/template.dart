@@ -5,12 +5,14 @@ class Template {
 
   final String className;
 
-  String license =
-      '''/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
+  String license = '''
+/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
 /// PLEASE DO NOT EDIT MANUALLY.\n''';
 
-  String get classDeclare => '''class $className {\n
+  String get classDeclare => '''
+class $className {\n
   const $className._();\n''';
+
   String get classDeclareFooter => '}\n';
 
   String formatFiled(String path, String projectPath, bool isPreview) {
@@ -19,11 +21,10 @@ class Template {
 
   /// ![preview](file://$projectPath${path_library.separator}${_formatPreviewName(path)})
   static const String ${_formatFiledName(path)} = '$path';\n''';
-    } else {
-      return '''
+    }
+    return '''
 
   static const String ${_formatFiledName(path)} = '$path';\n''';
-    }
   }
 
   String _formatPreviewName(String path) {
