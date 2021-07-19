@@ -1,5 +1,9 @@
 # Change log
 
+## [1.0.0-nullsafety.0]
+
+Migrate to Non-Nullable-By-Default.
+
 ## [0.6.1]
 
 Exclude `.DS_Store` for MacOS, `thumbs.db` and `desktop.ini` for Windows.
