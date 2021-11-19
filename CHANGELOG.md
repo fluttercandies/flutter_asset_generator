@@ -1,5 +1,9 @@
 # Change log
 
+## [1.0.1]
+
+Add ignore lint to the template.
+
 ## [1.0.0-nullsafety.0]
 
 Migrate to Non-Nullable-By-Default.
