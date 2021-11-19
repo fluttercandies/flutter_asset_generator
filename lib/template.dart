@@ -7,7 +7,8 @@ class Template {
 
   String license = '''
 /// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
-/// PLEASE DO NOT EDIT MANUALLY.\n''';
+/// PLEASE DO NOT EDIT MANUALLY.
+// ignore_for_file: constant_identifier_names\n''';
 
   String get classDeclare => '''
 class $className {\n
