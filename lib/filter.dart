@@ -34,14 +34,9 @@ class Filter {
 
   List<Glob> _loadList(String key, [bool emptyEqualsAll = false]) {
     try {
-      YamlList? list;
-
-      if (map != null) {
-        list = map![key] as YamlList;
-      }
-
+      final YamlList? list = map?[key] as YamlList?;
       if (emptyEqualsAll && (list == null || list.isEmpty)) {
-        return <Glob>[Glob('*.*')];
+        return <Glob>[Glob('**')];
       }
       if (list == null) {
         return <Glob>[];
@@ -50,7 +45,6 @@ class Filter {
     } catch (e, st) {
       print(e);
       print(st);
-      print('The $key of fgen.yaml must be a string array');
       exit(2);
     }
   }
