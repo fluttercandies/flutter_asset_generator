@@ -19,8 +19,8 @@ void main(List<String> args) {
     'output',
     abbr: 'o',
     defaultsTo: 'lib${separator}const${separator}resource.dart',
-    help:
-        'Your resource file path. \nIf it\'s a relative path, the relative flutter root directory',
+    help: 'Your resource file path. \n'
+        "If it's a relative path, the relative flutter root directory",
   );
   parser.addOption(
     'src',
