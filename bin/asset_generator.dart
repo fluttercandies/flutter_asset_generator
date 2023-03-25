@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:flutter_asset_generator/builder.dart';
 import 'package:flutter_asset_generator/logger.dart';
-import 'package:path/path.dart' as path_library;
+import 'package:path/path.dart' as p;
 
-String get separator => path_library.separator;
+final String separator = p.separator;
 
 void main(List<String> args) {
   final ArgParser parser = ArgParser();
@@ -76,8 +76,10 @@ void check(
   bool isWatch,
   bool isPreview,
 ) {
-  final ResourceDartBuilder builder =
-      ResourceDartBuilder(workPath.absolute.path, outputPath);
+  final ResourceDartBuilder builder = ResourceDartBuilder(
+    workPath.absolute.path,
+    outputPath,
+  );
   builder.isWatch = isWatch;
   builder.isPreview = isPreview;
   builder.generateResourceDartFile(className);
