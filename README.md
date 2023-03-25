@@ -1,14 +1,15 @@
 # flutter_asset_generator
 
+English | [中文文档](README_CHN.md)
+
 Automatically generate the dart file for pubspec.yaml
 
-The purpose of this library is to help flutter developers automatically generate asset corresponding dart files to help developers release their hands from this meaningless job, and the open source community has a lot of the same functionality.
+The purpose of this library is to help flutter developers
+automatically generate asset corresponding dart files
+to help developers release their hands from this meaningless job,
+and the open source community has a lot of the same functionality.
 
 This library is based on dartlang's build library.
-
-[中文文档](https://github.com/CaiJingLong/flutter_resource_generator/blob/master/README_CHN.md)
-
-[English](https://github.com/CaiJingLong/flutter_resource_generator)
 
 - [flutter_asset_generator](#flutter_asset_generator)
   - [screenshot](#screenshot)
@@ -27,27 +28,25 @@ This library is based on dartlang's build library.
 
 ## Usage
 
-### use source
+### Run from source
 
-add `dart`,`pub` to `$PATH` environment.
-
-```bash
-git clone https://github.com/CaiJingLong/flutter_resource_generator.git
-cd flutter_resource_generator
-pub get
-dart bin/resource_generator.dart $flutter_project
-```
-
-### pub global
-
-install:
+Add `dart` to your `$PATH` environment.
 
 ```bash
-pub global activate flutter_asset_generator
+git clone https://github.com/fluttercandies/flutter_asset_generator
+cd flutter_asset_generator
+dart pub get
+dart bin/asset_generator.dart $flutter_project
 ```
 
-use:
+### Run from pub global
 
+1. Install using [pub global][]:
+```bash
+dart pub global activate flutter_asset_generator
+```
+
+2. Run below commands:
 `fgen`
 or
 `fgen -s $flutter_project`
@@ -84,20 +83,19 @@ fgen -h
 `Space`, '.' and '-' in the path will be converted to `_`. `@` will be converted to `_AT_`.
 
 convert filed name example:
-
-```bash
-    images/1.png => IMAGES_PNG
-    images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
-    images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
+```
+images/1.png => IMAGES_PNG
+images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
+images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
 ```
 
-Errors will occur in the following situations
+Errors will occur in the following situations:
 
 ```bash
-  images/
-    main_login.png
-    main/
-      login.png
+images/
+├── main_login.png
+├── main/
+    ├── login.png
 ```
 
 Because the two field names will be exactly the same.
@@ -135,27 +133,28 @@ include:
 
 ```sh
 assets
-├── address.png   # exclude by "**/add*.png"
-├── address@at.png  # exclude by "**/add*.png"
+├── address.png           # exclude by "**/add*.png"
+├── address@at.png        # exclude by "**/add*.png"
 ├── bluetoothon-fjdfj.png
 ├── bluetoothon.png
 └── camera.png
 
 images
-├── address space.png  # exclude by "**/add*.png"
-├── address.png  # exclude by "**/add*.png"
-├── addto.png  # exclude by "**/add*.png"
+├── address space.png     # exclude by "**/add*.png"
+├── address.png           # exclude by "**/add*.png"
+├── addto.png             # exclude by "**/add*.png"
 ├── audio.png
-├── bluetooth_link.png  # exclude by **_**
+├── bluetooth_link.png    # exclude by **_**
 ├── bluetoothoff.png
 ├── child.png
 └── course.png
 ```
 
 ```dart
-/// Generate by [resource_generator](https://github.com/CaiJingLong/flutter_resource_generator) library.
+/// Generate by [asset_generator](https://github.com/fluttercandies/flutter_asset_generator) library.
 /// PLEASE DO NOT EDIT MANUALLY.
 class R {
+  const R._();
 
   /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/assets/bluetoothon-fjdfj.png)
   static const String ASSETS_BLUETOOTHON_FJDFJ_PNG = 'assets/bluetoothon-fjdfj.png';
