@@ -45,7 +45,7 @@ fgen
 ```
 或者
 ```bash
-fgen -s $flutter_project`
+fgen -s $flutter_project
 ```
 
 ### 支持的命令行参数
