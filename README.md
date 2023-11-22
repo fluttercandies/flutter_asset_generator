@@ -11,14 +11,15 @@ and the open source community has a lot of the same functionality.
 
 This library is based on dartlang's build library.
 
-- [flutter_asset_generator](#flutter_asset_generator)
+- [flutter\_asset\_generator](#flutter_asset_generator)
   - [screenshot](#screenshot)
   - [Usage](#usage)
-    - [use source](#use-source)
-    - [pub global](#pub-global)
+    - [Run from source](#run-from-source)
+    - [Run from pub global](#run-from-pub-global)
     - [Support options](#support-options)
   - [File name](#file-name)
   - [Config file](#config-file)
+    - [Config schema for vscode](#config-schema-for-vscode)
     - [exclude and include rules](#exclude-and-include-rules)
       - [Example](#example)
 
@@ -42,6 +43,7 @@ dart bin/asset_generator.dart $flutter_project
 ### Run from pub global
 
 1. Install using [pub global][]:
+
 ```bash
 dart pub global activate flutter_asset_generator
 ```
@@ -83,6 +85,7 @@ fgen -h
 `Space`, '.' and '-' in the path will be converted to `_`. `@` will be converted to `_AT_`.
 
 convert filed name example:
+
 ```
 images/1.png => IMAGES_PNG
 images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
@@ -105,6 +108,20 @@ Because the two field names will be exactly the same.
 The location of the configuration file is conventional.
 Configuration via commands is **not supported**.
 The specified path is `fgen.yaml` in the flutter project root directory.
+
+### Config schema for vscode
+
+Config your vscode `settings.json` file.
+
+It can be used to prompt the configuration file.
+
+```json
+{
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/fluttercandies/flutter_asset_generator/master/fgen_schema.json": ["fgen.yaml"]
+  }
+}
+```
 
 ### exclude and include rules
 
