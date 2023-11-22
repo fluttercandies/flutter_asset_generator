@@ -111,6 +111,8 @@ The specified path is `fgen.yaml` in the flutter project root directory.
 
 ### Config schema for vscode
 
+Install [YAML Support](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) plugin.
+
 Config your vscode `settings.json` file.
 
 It can be used to prompt the configuration file.
