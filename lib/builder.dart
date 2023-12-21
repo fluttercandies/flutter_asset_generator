@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
+import 'config.dart';
 import 'filter.dart';
 import 'format.dart';
 import 'logger.dart';
@@ -22,8 +23,12 @@ const int serverPort = 31313;
 Logger logger = Logger();
 
 class ResourceDartBuilder {
-  ResourceDartBuilder(String projectRootPath, this.outputPath) {
-    this.projectRootPath = projectRootPath.replaceAll('$separator.', '');
+  // ResourceDartBuilder(String projectRootPath, this.outputPath) {
+  ResourceDartBuilder(this.config) {
+    final String projectRootPath = config.src;
+    outputPath = config.output;
+    isWatch = config.isWatch;
+    isPreview = config.preview;
 
     final File yamlFile = File('$projectRootPath/fgen.yaml');
     if (yamlFile.existsSync()) {
@@ -32,12 +37,14 @@ class ResourceDartBuilder {
     }
   }
 
+  final Config config;
   Filter? filter;
   bool isWatch = false;
   bool _watching = false;
   bool isPreview = true;
 
-  void generateResourceDartFile(String className) {
+  void generateResourceDartFile() {
+    final String className = config.className;
     print('$_generateLogPrefix for project: $projectRootPath');
     stopWatch();
     final String pubYamlPath = '$projectRootPath${separator}pubspec.yaml';
@@ -61,7 +68,7 @@ class ResourceDartBuilder {
 
   File get logFile => File('.dart_tool${separator}fgen_log.txt');
 
-  late final String projectRootPath;
+  String get projectRootPath => config.src;
   late final String outputPath;
 
   /// Write logs to the file
@@ -217,7 +224,7 @@ class ResourceDartBuilder {
     }
     _watching = true;
     for (final Directory dir in dirList) {
-      final StreamSubscription<FileSystemEvent>? sub = _watch(dir, className);
+      final StreamSubscription<FileSystemEvent>? sub = _watch(dir);
       if (sub != null) {
         sub.onDone(sub.cancel);
       }
@@ -225,7 +232,7 @@ class ResourceDartBuilder {
     }
     final File pubspec = File('$projectRootPath${separator}pubspec.yaml');
     // ignore: cancel_subscriptions
-    final StreamSubscription<FileSystemEvent>? sub = _watch(pubspec, className);
+    final StreamSubscription<FileSystemEvent>? sub = _watch(pubspec);
     if (sub != null) {
       watchMap[pubspec] = sub;
     }
@@ -243,12 +250,11 @@ class ResourceDartBuilder {
   /// When the directory is change, refresh records.
   StreamSubscription<FileSystemEvent>? _watch(
     FileSystemEntity file,
-    String className,
   ) {
     if (FileSystemEntity.isWatchSupported) {
       return file.watch().listen((FileSystemEvent data) {
         print('${data.path} has changed.');
-        generateResourceDartFile(className);
+        generateResourceDartFile();
       });
     }
     return null;

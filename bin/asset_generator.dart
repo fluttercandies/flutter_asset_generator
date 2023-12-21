@@ -1,26 +1,23 @@
-import 'dart:io';
-
 import 'package:args/args.dart';
 import 'package:flutter_asset_generator/builder.dart';
+import 'package:flutter_asset_generator/config.dart';
 import 'package:flutter_asset_generator/logger.dart';
-import 'package:path/path.dart' as p;
-
-final String separator = p.separator;
 
 void main(List<String> args) {
   final ArgParser parser = ArgParser();
   parser.addFlag(
     'watch',
     abbr: 'w',
-    defaultsTo: true,
+    defaultsTo: null,
     help: 'Continue to monitor changes after execution of orders.',
   );
+  final String defaultPath = Config.defaultPath;
   parser.addOption(
     'output',
     abbr: 'o',
-    defaultsTo: 'lib${separator}const${separator}resource.dart',
     help: 'Your resource file path. \n'
-        "If it's a relative path, the relative flutter root directory",
+        "If it's a relative path, the relative flutter root directory.\n"
+        "If you don't specify it, the default path is $defaultPath.\n",
   );
   parser.addOption(
     'src',
@@ -31,19 +28,31 @@ void main(List<String> args) {
   parser.addOption(
     'name',
     abbr: 'n',
-    defaultsTo: 'R',
-    help: 'The class name for the constant.',
+    help: 'The class name for the constant.\n'
+        'If you don\'t specify it, the default name is R.',
   );
-  parser.addFlag('help', abbr: 'h', help: 'Help usage', defaultsTo: false);
+  parser.addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Help usage',
+    defaultsTo: false,
+    negatable: false,
+  );
 
-  parser.addFlag('debug', abbr: 'd', help: 'debug info', defaultsTo: false);
+  parser.addFlag(
+    'debug',
+    abbr: 'd',
+    help: 'debug info',
+    defaultsTo: false,
+    negatable: false,
+  );
 
   parser.addFlag(
     'preview',
     abbr: 'p',
-    help:
-        'Enable preview comments, defaults to true, use --no-preview to disable this functionality',
-    defaultsTo: true,
+    help: 'Enable preview comments, defaults to true, '
+        'use --no-preview to disable this functionality',
+    defaultsTo: null,
   );
 
   final ArgResults results = parser.parse(args);
@@ -55,32 +64,12 @@ void main(List<String> args) {
     return;
   }
 
-  final String path = results['src'] as String;
-  final String className = results['name'] as String;
-  final String outputPath = results['output'] as String;
-  final File workPath = File(path).absolute;
+  final Config config = Config.fromArgResults(results);
 
-  check(
-    workPath,
-    outputPath,
-    className,
-    results['watch'] as bool,
-    results['preview'] as bool,
-  );
-}
+  logger.debug('The config is: $config');
 
-void check(
-  File workPath,
-  String outputPath,
-  String className,
-  bool isWatch,
-  bool isPreview,
-) {
   final ResourceDartBuilder builder = ResourceDartBuilder(
-    workPath.absolute.path,
-    outputPath,
+    config,
   );
-  builder.isWatch = isWatch;
-  builder.isPreview = isPreview;
-  builder.generateResourceDartFile(className);
+  builder.generateResourceDartFile();
 }

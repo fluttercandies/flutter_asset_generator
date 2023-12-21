@@ -1,11 +1,15 @@
 # Change log
 
+## 1.1.0
+
+- Support config file
+
 ## [1.0.2]
 
-- 🐛 Fix the default glob matching by @AlexV525 in https://github.com/fluttercandies/flutter_resource_generator/pull/24
-- 🐛 Fix the builder by @AlexV525 in https://github.com/fluttercandies/flutter_resource_generator/pull/23
+- 🐛 Fix the default glob matching by @AlexV525 in [#24)(https://github.com/fluttercandies/flutter_resource_generator/pull/24)
+- 🐛 Fix the builder by @AlexV525 in [#23](https://github.com/fluttercandies/flutter_resource_generator/pull/23)
 
-**Full Changelog**: https://github.com/fluttercandies/flutter_resource_generator/compare/1.0.1...1.0.2
+**Full Changelog**: <https://github.com/fluttercandies/flutter_resource_generator/compare/1.0.1...1.0.2>
 
 ## [1.0.1]
 

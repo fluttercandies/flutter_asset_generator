@@ -4,16 +4,17 @@
 
 在 lib/const/resource.dart 中 自动生成 R 文件(仿安卓短命名)
 
-- [flutter_asset_generator](#flutter_asset_generator)
+- [flutter\_asset\_generator](#flutter_asset_generator)
   - [截图](#截图)
   - [安装及使用](#安装及使用)
     - [使用源码的方式](#使用源码的方式)
-    - [pub global](#pub-global)
+    - [通过 pub global 运行](#通过-pub-global-运行)
     - [支持的命令行参数](#支持的命令行参数)
   - [关于文件名](#关于文件名)
   - [配置文件](#配置文件)
     - [排除和导入](#排除和导入)
       - [典型示例](#典型示例)
+    - [其他配置选项](#其他配置选项)
 
 ## 截图
 
@@ -35,15 +36,19 @@ dart bin/asset_generator.dart $flutter_project
 ### 通过 pub global 运行
 
 1. 参阅 [pub global][] 官方文档添加 `~/.pub-cache/bin` 至环境变量下：
+
 ```bash
 dart pub global activate flutter_asset_generator
 ```
 
-2. 在项目目录下执行：
+1. 在项目目录下执行：
+
 ```bash
 fgen
 ```
+
 或者
+
 ```bash
 fgen -s $flutter_project
 ```
@@ -89,7 +94,7 @@ fgen -h
 
 转化的例子如下
 
-```
+```log
 images/1.png => IMAGES_PNG
 images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
@@ -98,6 +103,7 @@ images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
 会包含文件夹名称的原因是你 pubspec 中可能会包含多个文件夹目录, 或你的文件夹会包含多层级，甚至你的资产目录中会包含非图片（如数据库，json 等）资产
 
 如下情况会出现错误
+
 ```bash
 images/
 ├── main_login.png
@@ -181,6 +187,24 @@ class R {
   /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/images/course.png)
   static const String IMAGES_COURSE_PNG = 'images/course.png';
 }
+```
+
+### 其他配置选项
+
+从 1.1.0 开始：
+
+支持通过配置选项达到和命令行选项相同的效果，但命令行优先级高于配置文件。
+
+```yaml
+watch: false
+# watch: true
+
+preview: false
+
+output: lib/const/r.dart
+# output: lib/const/resource.dart
+
+name: RRR
 ```
 
 [pub global]: https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path

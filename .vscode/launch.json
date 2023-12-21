@@ -6,14 +6,13 @@
   "configurations": [
     {
       "name": "Dart",
-      "program": "bin/resource_generator.dart",
+      "program": "bin/asset_generator.dart",
       "request": "launch",
       "type": "dart",
       // "cwd": "example",
       "args": [
         "-s",
         "./example",
-        "--no-watch"
       ]
     }
   ]

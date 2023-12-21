@@ -6,3 +6,13 @@ include:
   - "**/a*.png"
   - "**/b*"
   - "**/c*"
+
+watch: false
+# watch: true
+
+preview: false
+
+# output: lib/const/r.dart
+# output: lib/const/resource.dart
+
+# name: RRR

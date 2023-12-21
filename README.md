@@ -22,6 +22,7 @@ This library is based on dartlang's build library.
     - [Config schema for vscode](#config-schema-for-vscode)
     - [exclude and include rules](#exclude-and-include-rules)
       - [Example](#example)
+    - [Other config](#other-config)
 
 ## screenshot
 
@@ -48,7 +49,7 @@ dart bin/asset_generator.dart $flutter_project
 dart pub global activate flutter_asset_generator
 ```
 
-2. Run below commands:
+1. Run below commands:
 `fgen`
 or
 `fgen -s $flutter_project`
@@ -86,7 +87,7 @@ fgen -h
 
 convert filed name example:
 
-```
+```log
 images/1.png => IMAGES_PNG
 images/hello_world.jpg => IMAGES_HELLO_WORLD_JPG
 images/hello-world.jpg => IMAGES_HELLO_WORLD_JPG
@@ -196,6 +197,27 @@ class R {
   /// ![preview](file:///Users/jinglongcai/code/dart/self/flutter_resource_generator/example/images/course.png)
   static const String IMAGES_COURSE_PNG = 'images/course.png';
 }
+```
+
+### Other config
+
+Since version 1.1.0:
+
+Next command config option also support in config file.
+
+But the command line option has a higher priority than the config file.
+
+```yaml
+
+watch: false
+# watch: true
+
+preview: false
+
+output: lib/const/r.dart
+# output: lib/const/resource.dart
+
+name: RRR
 ```
 
 [pub global]: https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path
