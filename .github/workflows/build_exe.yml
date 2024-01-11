@@ -1,0 +1,62 @@
+name: Build executable
+
+on:
+  release:
+    types:
+      - created
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+        description: 'Tag to build'
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dart
+        uses: dart-lang/setup-dart@v1
+      - name: Install dependencies
+        run: dart pub get
+      - name: Build executable
+        shell: bash
+        run: |
+          echo "Building executable for ${{ matrix.os }}"
+          export TAG=${{ github.event.inputs.tag }}
+          echo "Tag: $TAG"
+
+          if [[ -z $"TAG" ]] ; then
+            echo "No tag provided, read the release tag from the release event"
+            export TAG=${{ github.event.release.tag_name }}
+          fi
+
+          echo "Tag: $TAG"
+
+          if [[ -z $"TAG" ]] ; then
+            echo "No tag provided, read the release tag from the release event"
+            export TAG=${{ github.event.release.tag_name }}
+          fi
+
+          EXE_NAME="fgen"
+          TAR_NAME="$EXE_NAME-$TAG-${{ matrix.os }}.tar.gz"
+
+          ## Build executable
+          dart compile exe bin/main.dart -o $EXE_NAME
+
+          ## Create tarball
+          tar -czf $TAR_NAME $EXE_NAME
+
+          ## Upload artifact use gh cli
+          gh release upload $TAG $TAR_NAME --clobber
