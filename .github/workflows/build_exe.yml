@@ -53,7 +53,9 @@ jobs:
           TAR_NAME="$EXE_NAME-$TAG-${{ matrix.os }}.tar.gz"
 
           ## Build executable
-          dart compile exe bin/main.dart -o $EXE_NAME
+          dart compile exe bin/asset_generator.dart -o $EXE_NAME
+
+          chmod +x $EXE_NAME
 
           ## Create tarball
           tar -czf $TAR_NAME $EXE_NAME
