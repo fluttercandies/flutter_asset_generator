@@ -21,6 +21,7 @@ This library is based on dartlang's build library.
   - [Config file](#config-file)
     - [Config schema for vscode](#config-schema-for-vscode)
     - [exclude and include rules](#exclude-and-include-rules)
+    - [Replacement Rules](#replacement-rules)
       - [Example](#example)
     - [Other config](#other-config)
 
@@ -47,6 +48,10 @@ dart bin/asset_generator.dart $flutter_project
 
 ```bash
 dart pub global activate flutter_asset_generator
+
+# or 
+
+dart pub global activate -s git https://github.com/fluttercandies/flutter_asset_generator.git                 
 ```
 
 1. Run below commands:
@@ -137,6 +142,27 @@ The `include` node is the name of the file that needs to be imported, and the ty
 In terms of priority, exclude is higher than include, in other words:
 
 First import the file according to the include nodes, and then exclude the files.
+
+### Replacement Rules
+
+File names can be replaced according to the configuration file as shown below:
+
+```yaml
+
+replace:
+  - from: “
+    to: 
+  - from: ”
+    to: 
+  - from: ’
+    to:
+  - from: (
+    to:
+  - from: )
+    to:
+  - from: "!"
+    to:
+```
 
 #### Example
 

@@ -13,6 +13,7 @@
   - [关于文件名](#关于文件名)
   - [配置文件](#配置文件)
     - [排除和导入](#排除和导入)
+    - [替换规则](#替换规则)
       - [典型示例](#典型示例)
     - [其他配置选项](#其他配置选项)
 
@@ -39,6 +40,10 @@ dart bin/asset_generator.dart $flutter_project
 
 ```bash
 dart pub global activate flutter_asset_generator
+
+# 或
+
+dart pub global activate -s git https://github.com/fluttercandies/flutter_asset_generator.git                 
 ```
 
 1. 在项目目录下执行：
@@ -128,6 +133,27 @@ images/
 优先级方面，exclude 高于 include，换句话说：
 
 先根据 include 节点导入文件，然后 exclude 排除文件
+
+### 替换规则
+
+文件名支持在配置文件中进行替换，如下所示：
+
+```yaml
+
+replace:
+  - from: “
+    to: 
+  - from: ”
+    to: 
+  - from: ’
+    to:
+  - from: (
+    to:
+  - from: )
+    to:
+  - from: "!"
+    to:
+```
 
 #### 典型示例
 

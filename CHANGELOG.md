@@ -1,5 +1,9 @@
 # Change log
 
+## 1.2.0
+
+- Feat: support replace rules in config file.
+
 ## 1.1.0
 
 - Support config file

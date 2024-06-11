@@ -1,9 +1,18 @@
+import 'package:flutter_asset_generator/config.dart';
 import 'package:path/path.dart' as path_library;
 
+import 'replace.dart';
+
 class Template {
-  Template(this.className);
+  Template(
+    this.className,
+    this.config,
+  );
 
   final String className;
+  final Config config;
+
+  late final Replacer replacer = Replacer(config: config);
 
   String license = '''
 /// Generate by [asset_generator](https://github.com/fluttercandies/flutter_asset_generator) library.
@@ -34,13 +43,15 @@ class $className {\n
   }
 
   String _formatFiledName(String path) {
-    path = path
-        .replaceAll('/', '_')
-        .replaceAll('.', '_')
-        .replaceAll(' ', '_')
-        .replaceAll('-', '_')
-        .replaceAll('@', '_AT_');
-    return path.toUpperCase();
+    // path = path
+    //     .replaceAll('/', '_')
+    //     .replaceAll('.', '_')
+    //     .replaceAll(' ', '_')
+    //     .replaceAll('-', '_')
+    //     .replaceAll('@', '_AT_');
+    // return path.toUpperCase();
+
+    return replacer.replaceName(path).toUpperCase();
   }
 
   String toUppercaseFirstLetter(String str) {
