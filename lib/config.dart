@@ -11,6 +11,7 @@ class Config {
     required this.output,
     required this.isWatch,
     required this.preview,
+    required this.configFileOptions,
   });
 
   factory Config.fromArgResults(ArgResults results) {
@@ -26,9 +27,9 @@ class Config {
     bool? watch = results['watch'];
     bool? preview = results['preview'];
 
+    YamlMap? yamlMap;
     if (configFile.existsSync()) {
-      final YamlMap? yamlMap =
-          loadYaml(configFile.readAsStringSync()) as YamlMap?;
+      yamlMap = loadYaml(configFile.readAsStringSync()) as YamlMap?;
 
       if (yamlMap != null) {
         output ??= yamlMap['output'] as String?;
@@ -49,6 +50,7 @@ class Config {
       output: output,
       isWatch: watch,
       preview: preview,
+      configFileOptions: yamlMap,
     );
   }
 
@@ -59,6 +61,7 @@ class Config {
   final bool isWatch;
   final bool preview;
   final String className;
+  final YamlMap? configFileOptions;
 
   @override
   String toString() {

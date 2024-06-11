@@ -129,6 +129,27 @@ images/
 
 先根据 include 节点导入文件，然后 exclude 排除文件
 
+### 替换规则
+
+文件名支持在配置文件中进行替换，如下所示：
+
+```yaml
+
+replace:
+  - from: “
+    to: 
+  - from: ”
+    to: 
+  - from: ’
+    to:
+  - from: (
+    to:
+  - from: )
+    to:
+  - from: "!"
+    to:
+```
+
 #### 典型示例
 
 ```yaml

@@ -21,6 +21,7 @@ This library is based on dartlang's build library.
   - [Config file](#config-file)
     - [Config schema for vscode](#config-schema-for-vscode)
     - [exclude and include rules](#exclude-and-include-rules)
+    - [Replacement Rules](#replacement-rules)
       - [Example](#example)
     - [Other config](#other-config)
 
@@ -137,6 +138,27 @@ The `include` node is the name of the file that needs to be imported, and the ty
 In terms of priority, exclude is higher than include, in other words:
 
 First import the file according to the include nodes, and then exclude the files.
+
+### Replacement Rules
+
+File names can be replaced according to the configuration file as shown below:
+
+```yaml
+
+replace:
+  - from: “
+    to: 
+  - from: ”
+    to: 
+  - from: ’
+    to:
+  - from: (
+    to:
+  - from: )
+    to:
+  - from: "!"
+    to:
+```
 
 #### Example
 

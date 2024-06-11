@@ -25,11 +25,15 @@ Logger logger = Logger();
 class ResourceDartBuilder {
   // ResourceDartBuilder(String projectRootPath, this.outputPath) {
   ResourceDartBuilder(this.config) {
-    final String projectRootPath = config.src;
     outputPath = config.output;
     isWatch = config.isWatch;
     isPreview = config.preview;
 
+    _loadFilter();
+  }
+
+  void _loadFilter() {
+    final String projectRootPath = config.src;
     final File yamlFile = File('$projectRootPath/fgen.yaml');
     if (yamlFile.existsSync()) {
       final String text = yamlFile.readAsStringSync();
@@ -195,7 +199,7 @@ class ResourceDartBuilder {
     resourceFile.createSync(recursive: true);
 
     final StringBuffer source = StringBuffer();
-    final Template template = Template(className);
+    final Template template = Template(className, config);
     source.write(template.license);
     source.write(template.classDeclare);
     for (final String path in allImageList) {
@@ -236,6 +240,17 @@ class ResourceDartBuilder {
     if (sub != null) {
       watchMap[pubspec] = sub;
     }
+
+    final File configFile = File('$projectRootPath${separator}fgen.yaml');
+    if (configFile.existsSync()) {
+      // ignore: cancel_subscriptions
+      final StreamSubscription<FileSystemEvent>? configFileSub =
+          _watch(configFile);
+      if (sub != null) {
+        watchMap[configFile] = configFileSub;
+      }
+    }
+
     print('Watching all resources file.');
   }
 
@@ -254,6 +269,7 @@ class ResourceDartBuilder {
     if (FileSystemEntity.isWatchSupported) {
       return file.watch().listen((FileSystemEvent data) {
         print('${data.path} has changed.');
+        _loadFilter();
         generateResourceDartFile();
       });
     }
