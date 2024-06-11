@@ -48,6 +48,10 @@ dart bin/asset_generator.dart $flutter_project
 
 ```bash
 dart pub global activate flutter_asset_generator
+
+# or 
+
+dart pub global activate -s git https://github.com/fluttercandies/flutter_asset_generator.git                 
 ```
 
 1. Run below commands:

@@ -13,6 +13,7 @@
   - [关于文件名](#关于文件名)
   - [配置文件](#配置文件)
     - [排除和导入](#排除和导入)
+    - [替换规则](#替换规则)
       - [典型示例](#典型示例)
     - [其他配置选项](#其他配置选项)
 
@@ -39,6 +40,10 @@ dart bin/asset_generator.dart $flutter_project
 
 ```bash
 dart pub global activate flutter_asset_generator
+
+# 或
+
+dart pub global activate -s git https://github.com/fluttercandies/flutter_asset_generator.git                 
 ```
 
 1. 在项目目录下执行：
