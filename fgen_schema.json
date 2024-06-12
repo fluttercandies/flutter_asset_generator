@@ -16,6 +16,39 @@
       "items": {
         "type": "string"
       }
+    },
+    "output": {
+      "type": "string",
+      "description": "Output directory for the generated files."
+    },
+    "preview": {
+      "type": "boolean",
+      "description": "Make the preview comment for every resource field."
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Watch for changes in the input files."
+    },
+    "name": {
+      "type": "string",
+      "description": "class name of the generated."
+    },
+    "replace": {
+      "type": "array",
+      "description": "Replace the string in the field name.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "description": "The string to search for."
+          },
+          "to": {
+            "type": "string",
+            "description": "The string to replace with."
+          }
+        }
+      }
     }
   }
 }
