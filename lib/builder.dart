@@ -24,28 +24,13 @@ Logger logger = Logger();
 
 class ResourceDartBuilder {
   // ResourceDartBuilder(String projectRootPath, this.outputPath) {
-  ResourceDartBuilder(this.config) {
-    outputPath = config.output;
-    isWatch = config.isWatch;
-    isPreview = config.preview;
-
-    _loadFilter();
-  }
-
-  void _loadFilter() {
-    final String projectRootPath = config.src;
-    final File yamlFile = File('$projectRootPath/fgen.yaml');
-    if (yamlFile.existsSync()) {
-      final String text = yamlFile.readAsStringSync();
-      filter = Filter(text);
-    }
-  }
+  ResourceDartBuilder(this.config);
 
   final Config config;
-  Filter? filter;
-  bool isWatch = false;
+  Filter? get filter => config.filter;
+  bool get isWatch => config.isWatch;
   bool _watching = false;
-  bool isPreview = true;
+  bool get isPreview => config.preview;
 
   void generateResourceDartFile() {
     final String className = config.className;
@@ -73,7 +58,7 @@ class ResourceDartBuilder {
   File get logFile => File('.dart_tool${separator}fgen_log.txt');
 
   String get projectRootPath => config.src;
-  late final String outputPath;
+  String get outputPath => config.output;
 
   /// Write logs to the file
   /// Defaults to `.dart_tools/fgen_log.txt`
@@ -178,17 +163,17 @@ class ResourceDartBuilder {
   }
 
   final bool isWriting = false;
-  File? _resourceFile;
 
   File get resourceFile {
+    File res;
     if (File(outputPath).isAbsolute) {
-      _resourceFile ??= File(outputPath);
+      res = File(outputPath);
     } else {
-      _resourceFile ??= File('$projectRootPath/$outputPath');
+      res = File('$projectRootPath/$outputPath');
     }
 
-    _resourceFile!.createSync(recursive: true);
-    return _resourceFile!;
+    res.createSync(recursive: true);
+    return res;
   }
 
   /// Generate the dart code
@@ -269,7 +254,7 @@ class ResourceDartBuilder {
     if (FileSystemEntity.isWatchSupported) {
       return file.watch().listen((FileSystemEvent data) {
         print('${data.path} has changed.');
-        _loadFilter();
+        config.refresh();
         generateResourceDartFile();
       });
     }

@@ -4,17 +4,32 @@ import 'package:args/args.dart';
 import 'package:path/path.dart';
 import 'package:yaml/yaml.dart';
 
+import 'filter.dart';
+
 class Config {
-  const Config({
-    required this.className,
-    required this.src,
-    required this.output,
-    required this.isWatch,
-    required this.preview,
-    required this.configFileOptions,
+  Config({
+    required this.results,
   });
 
   factory Config.fromArgResults(ArgResults results) {
+    final Config config = Config(results: results);
+    config.refresh();
+    return config;
+  }
+
+  static final String defaultPath = join('lib', 'const', 'resource.dart');
+
+  final ArgResults results;
+  late String src;
+  late String output;
+  late bool isWatch;
+  late bool preview;
+  late String className;
+  late YamlMap? configFileOptions;
+
+  Filter? filter;
+
+  void refresh() {
     String src = results['src'] as String;
 
     src = absolute(src);
@@ -29,7 +44,9 @@ class Config {
 
     YamlMap? yamlMap;
     if (configFile.existsSync()) {
-      yamlMap = loadYaml(configFile.readAsStringSync()) as YamlMap?;
+      final String configFileText = configFile.readAsStringSync();
+      filter = Filter(configFileText);
+      yamlMap = loadYaml(configFileText) as YamlMap?;
 
       if (yamlMap != null) {
         output ??= yamlMap['output'] as String?;
@@ -44,24 +61,13 @@ class Config {
     watch ??= true;
     preview ??= true;
 
-    return Config(
-      className: className,
-      src: src,
-      output: output,
-      isWatch: watch,
-      preview: preview,
-      configFileOptions: yamlMap,
-    );
+    this.src = src;
+    this.output = output;
+    this.className = className;
+    isWatch = watch;
+    this.preview = preview;
+    configFileOptions = yamlMap;
   }
-
-  static final String defaultPath = join('lib', 'const', 'resource.dart');
-
-  final String src;
-  final String output;
-  final bool isWatch;
-  final bool preview;
-  final String className;
-  final YamlMap? configFileOptions;
 
   @override
   String toString() {
