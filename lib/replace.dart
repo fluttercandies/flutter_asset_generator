@@ -19,15 +19,9 @@ class Replacer {
 
   final Config config;
 
-  final List<RegexItem> items = <RegexItem>[];
+  final Map<String, RegexItem> itemMap = <String, RegexItem>{};
 
   void init() {
-    items.add(const RegexItem(from: '/', to: '_'));
-    items.add(const RegexItem(from: '.', to: '_'));
-    items.add(const RegexItem(from: ' ', to: '_'));
-    items.add(const RegexItem(from: '-', to: '_'));
-    items.add(const RegexItem(from: '@', to: '_AT_'));
-
     final YamlMap? options = config.configFileOptions;
     if (options != null) {
       final List<dynamic>? replace = options['replace'] as List<dynamic>?;
@@ -36,17 +30,23 @@ class Replacer {
           final Map<dynamic, dynamic> map = item as Map<dynamic, dynamic>;
           final String from = map['from'] as String? ?? '';
           final String to = map['to'] as String? ?? '';
-          items.add(RegexItem(from: from, to: to));
+          itemMap[from] = RegexItem(from: from, to: to);
         }
       }
     }
+
+    itemMap.putIfAbsent('/', () => const RegexItem(from: '/', to: '_'));
+    itemMap.putIfAbsent('.', () => const RegexItem(from: '.', to: '_'));
+    itemMap.putIfAbsent(' ', () => const RegexItem(from: ' ', to: '_'));
+    itemMap.putIfAbsent('-', () => const RegexItem(from: '-', to: '_'));
+    itemMap.putIfAbsent('@', () => const RegexItem(from: '@', to: '_AT_'));
   }
 
   String replaceName(String path) {
     String result = path;
-    for (final RegexItem item in items) {
-      result = result.replaceAll(item.from, item.to);
-    }
+    itemMap.forEach((String key, RegexItem value) {
+      result = result.replaceAll(value.from, value.to);
+    });
     return result;
   }
 }
