@@ -14,5 +14,5 @@ preview: false
 
 # output: lib/const/r.dart
 # output: lib/const/resource.dart
-
-# name: RRR
+output: lib/const/flavor_resource.dart
+name: FlavorResource

@@ -10,3 +10,7 @@ flutter:
   assets:
     - images/
     - assets/
+
+    - path: assets/red/
+      flavors:
+        - red    

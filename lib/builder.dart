@@ -88,10 +88,24 @@ class ResourceDartBuilder {
 
   /// Get the asset from yaml list
   List<String> getListFromYamlList(YamlList yamlList) {
-    final List<String> list = <String>[];
-    final List<String> r = yamlList.map((dynamic f) => f.toString()).toList();
-    list.addAll(r);
-    return list;
+    return yamlList
+        .map((dynamic item) {
+          if (item is Map) {
+            final String path = item['path']?.toString() ?? '';
+            final List<String> flavors =
+                (item['flavors'] as List<dynamic>?)?.map((e) => e.toString()).toList() ??
+                    <String>[];
+
+            if (path.isEmpty && flavors.isEmpty) {
+              return '';
+            }
+            return path;
+          }
+
+          return item.toString();
+        })
+        .where((String e) => e.isNotEmpty)
+        .toList();
   }
 
   /// Convert the set to the list
@@ -145,9 +159,8 @@ class ResourceDartBuilder {
       if (platformExcludeFiles.contains(basename(fullPath))) {
         return;
       }
-      final String relativePath = path
-          .replaceAll('$projectRootPath$separator', '')
-          .replaceAll('$projectRootPath/', '');
+      final String relativePath =
+          path.replaceAll('$projectRootPath$separator', '').replaceAll('$projectRootPath/', '');
       if (!imageSet.contains(path)) {
         imageSet.add(relativePath);
       }
@@ -229,8 +242,7 @@ class ResourceDartBuilder {
     final File configFile = File('$projectRootPath${separator}fgen.yaml');
     if (configFile.existsSync()) {
       // ignore: cancel_subscriptions
-      final StreamSubscription<FileSystemEvent>? configFileSub =
-          _watch(configFile);
+      final StreamSubscription<FileSystemEvent>? configFileSub = _watch(configFile);
       if (sub != null) {
         watchMap[configFile] = configFileSub;
       }
