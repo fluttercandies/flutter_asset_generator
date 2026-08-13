@@ -10,6 +10,9 @@ on:
         required: true
         description: 'Tag to build'
 
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
@@ -20,37 +23,42 @@ jobs:
           - macos-latest
 
     runs-on: ${{ matrix.os }}
-    permissions: 
+    permissions:
       contents: write
     env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      INPUT_TAG: ${{ github.event.inputs.tag }}
+      RELEASE_TAG: ${{ github.event.release.tag_name }}
+      MATRIX_OS: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
       - name: Install dart
-        uses: dart-lang/setup-dart@v1
+        uses: dart-lang/setup-dart@65eb853c7ba17dde3be364c3d2858773e7144260
       - name: Install dependencies
         run: dart pub get
       - name: Build executable
         shell: bash
         run: |
-          echo "Building executable for ${{ matrix.os }}"
-          export TAG=${{ github.event.inputs.tag }}
+          echo "Building executable for $MATRIX_OS"
+          export TAG="$INPUT_TAG"
           echo "Tag: $TAG"
 
           if [[ -z $"TAG" ]] ; then
             echo "No tag provided, read the release tag from the release event"
-            export TAG=${{ github.event.release.tag_name }}
+            export TAG="$RELEASE_TAG"
           fi
 
           echo "Tag: $TAG"
 
           if [[ -z $"TAG" ]] ; then
             echo "No tag provided, read the release tag from the release event"
-            export TAG=${{ github.event.release.tag_name }}
+            export TAG="$RELEASE_TAG"
           fi
 
           EXE_NAME="fgen"
-          TAR_NAME="$EXE_NAME-$TAG-${{ matrix.os }}.tar.gz"
+          TAR_NAME="$EXE_NAME-$TAG-$MATRIX_OS.tar.gz"
 
           ## Build executable
           dart compile exe bin/asset_generator.dart -o $EXE_NAME
